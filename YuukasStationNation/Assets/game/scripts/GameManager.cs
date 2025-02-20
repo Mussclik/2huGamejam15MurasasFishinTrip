@@ -5,7 +5,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static Gamestate gamestate;
+    private static Gamestate gamestate;
+    public static Gamestate Gamestate
+    {
+        get { return gamestate; }
+        set { previousGamestate = gamestate; gamestate = value; }
+    }
+    public static Gamestate previousGamestate;
     public static GameManager instance;
 
     private void Awake()
@@ -16,7 +22,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SoundManager.instance.PlayMusic(1, true);
     }
 
     // Update is called once per frame
@@ -29,7 +35,12 @@ public class GameManager : MonoBehaviour
 public enum Gamestate
 {
     MovingOnMap,
+    Fishing,
+    ActivelyCatchingFish,
+    LookingAtFishCaught,
+    InAnimation,
     InIngameMenu,
     InPauseMenu,
     InTransition,
 }
+
