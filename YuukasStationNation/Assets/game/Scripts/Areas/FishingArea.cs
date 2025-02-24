@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishingArea : MonoBehaviour
+public class FishingArea : AreaBaseClass
 {
     [SerializeField] private List<FishObject> possibleFish;
     [SerializeField] private float maxModifierDevienceOfArea;
@@ -10,19 +10,19 @@ public class FishingArea : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public FishObject FishInArea(PlayerMovement player)
     {
         FishObject fishBeingCaught = Instantiate(possibleFish[Random.Range(0, possibleFish.Count)]);
-        if(fishBeingCaught != null )
+        if (fishBeingCaught != null)
         {
             fishBeingCaught.modifiers.GenerateModifiers(0.1f, maxModifierDevienceOfArea);
         }
@@ -40,17 +40,13 @@ public class FishingArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnPlayerEnter()
     {
-        Debug.Log("thing entered fish area");
-        if (other.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement player))
-        {
-            player.currentFishingArea = this;
-        }
+        Player.currentFishingArea = this;
     }
-    private void OnTriggerExit(Collider other)
+    protected override void OnPlayerExit()
     {
-        Debug.Log("thing left fish area");
+        Player.currentFishingArea = null;
     }
 
     private void OnDrawGizmos()

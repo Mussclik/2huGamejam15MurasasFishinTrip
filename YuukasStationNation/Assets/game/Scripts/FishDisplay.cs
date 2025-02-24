@@ -10,6 +10,8 @@ public class FishDisplay : MonoBehaviour
     [SerializeField] private TextMeshPro description;
     [SerializeField] private TextMeshPro weight;
     [SerializeField] private TextMeshPro size;
+    [SerializeField] private TextMeshPro price;
+    [SerializeField] private TextMeshPro difficulty;
     [SerializeField] private SpriteRenderer fishSpriteRenderer;
     [SerializeField] private SpriteRenderer playerFishSpriteRenderer;
 
@@ -28,8 +30,10 @@ public class FishDisplay : MonoBehaviour
 
             fishName.text = fish.fishName;
             description.text = fish.description;
-            weight.text = $"{fish.Weight}kg";
-            size.text = $"{fish.Size}m";
+            weight.text = $"Weight: {fish.Weight:F1}kg";
+            size.text = $"Size: {fish.Size:F1}m";
+            price.text = $"Price: {fish.FishPrice:F1}G";
+            difficulty.text = $"Difficulty: {fish.difficulty}";
             fishSpriteRenderer.sprite = fish.fishImage;
             playerFishSpriteRenderer.sprite = fish.fishImage;
             playerFishSpriteRenderer.transform.localScale = Vector3.one * fish.Size * 0.5f;

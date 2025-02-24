@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdd0081f773d6c4bad2f06a78c8529f, type: 3}
   m_Name: DebugRod
   m_EditorClassIdentifier: 
+  rodName: ph name
+  rodDescription: ph description
   strength: 999
   sizeModifier: 5
   speedModifier: 1
   minigameSpeed: 1
+  price: 0
+  slots:
+  - {fileID: 11400000, guid: a2154eda808e1cc4f879f6cb4f41ab4c, type: 2}
+  - {fileID: 11400000, guid: b295aabeca705fc4ab6bd8773d4eaa1f, type: 2}
+  - {fileID: 11400000, guid: ab05b4c029872024b94f552bed93216f, type: 2}
   rodImage: {fileID: 0}

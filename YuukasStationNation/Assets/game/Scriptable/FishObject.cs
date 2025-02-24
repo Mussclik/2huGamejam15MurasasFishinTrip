@@ -13,15 +13,15 @@ public class FishObject : ScriptableObject
 
     public float Size
     {
-        get { return Mathf.Clamp(baseSize * modifiers.size, baseSize * 0.1f, Mathf.Infinity);}
+        get { return Mathf.Clamp(baseSize * modifiers.size, baseSize * 0.1f, baseSize * 500f);}
     }
     public float Weight
     {
-        get { return Mathf.Clamp(baseWeight * modifiers.weight, baseWeight * 0.1f, Mathf.Infinity); }
+        get { return Mathf.Clamp(baseWeight * modifiers.weight, baseWeight * 0.1f, baseWeight * 500f); }
     }
     public float FishPrice
     {
-        get { return Mathf.Clamp(baseFishPrice * modifiers.price, baseFishPrice * 0.1f, Mathf.Infinity); }
+        get { return Mathf.Clamp(baseFishPrice * modifiers.price, baseFishPrice * 0.1f, baseFishPrice * 500f); }
     }
     public string fishName;
     [TextArea] public string description;

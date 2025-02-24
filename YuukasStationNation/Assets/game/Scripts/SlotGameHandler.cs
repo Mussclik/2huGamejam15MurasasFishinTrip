@@ -45,7 +45,9 @@ public class SlotGameHandler : MonoBehaviour
     }
     private void OnEnable()
     {
+
         ResetSlotGame();
+        slots = PlayerMovement.instance.equippedRod.slots;
         gamblingState = GamblingState.NotStarted;
         currentWheelSelected = -1;
         arrowPointer.gameObject.SetActive(false);
@@ -200,6 +202,8 @@ public class SlotGameHandler : MonoBehaviour
         if (!isSuccesful)
         {
             StartCoroutine(PlayerMovement.instance.FinishFishing());
+            PlayerMovement.instance.textspawner.CreateText("MASSIVE Skillissue!");
+            PlayerMovement.instance.ThrowMurasa();
         }
         else
         {

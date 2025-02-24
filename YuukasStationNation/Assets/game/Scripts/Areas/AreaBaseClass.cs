@@ -22,6 +22,7 @@ public class AreaBaseClass : MonoBehaviour, Iinteractable
         if (other.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement player))
         {
             player.currentInteractableArea = this;
+            OnPlayerEnter();
         }
     }
     private void OnTriggerExit(Collider other)
@@ -33,8 +34,17 @@ public class AreaBaseClass : MonoBehaviour, Iinteractable
             {
                 player.currentInteractableArea = null;
             }
+            OnPlayerExit();
             
         }
+    }
+    protected virtual void OnPlayerEnter()
+    {
+        Player.textspawner.CreateText("Press F to Interact");
+    }
+    protected virtual void OnPlayerExit()
+    {
+
     }
 
 }

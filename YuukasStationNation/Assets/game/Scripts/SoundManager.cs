@@ -16,10 +16,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<AudioSource> musicObjects;
     [SerializeField] private List<AudioClip> musicClips;
     [SerializeField] private List<AudioClip> DEBUG_audioClips;
-    public enum debug_clipNames
-    {
-        incorrectBuzzer = 0,
-    }
 
     [SerializeField] private AnimationCurve musicCurve;
 
@@ -29,11 +25,6 @@ public class SoundManager : MonoBehaviour
 
     [Header("DEBUG")]
     [SerializeField] private int debug_music;
-
-    public enum songs
-    {
-        doremySong = 0,
-    }
 
     private void Awake()
     {
@@ -107,24 +98,30 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(int musicID = 0, bool instant = false)
     {
-        currentSelectedSong = musicID;
-        if (instant)
+
+        if (currentSelectedSong != musicID)
         {
-            foreach (AudioSource musicObject in musicObjects)
+
+            if (instant)
             {
-                if (musicObject != musicObjects[currentSelectedSong])
+                foreach (AudioSource musicObject in musicObjects)
                 {
-                    musicObject.volume = 0;
+                    if (musicObject != musicObjects[currentSelectedSong])
+                    {
+                        musicObject.volume = 0;
+                    }
+                    else
+                    {
+                        musicObject.volume = 1;
+                    }
                 }
-                else
-                {
-                    musicObject.volume = 1;
-                }
+
             }
-        }
-        else
-        {
-            musicChangeTimer.Start(musicTransitionTime);
+            else
+            {
+                musicChangeTimer.Start(musicTransitionTime);
+            }
+            currentSelectedSong = musicID;
         }
     }
 

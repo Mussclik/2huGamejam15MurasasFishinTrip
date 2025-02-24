@@ -37,22 +37,38 @@ public class PlayerMovement : MonoBehaviour
     public OnAnimationFinish onAnimationFinish;
 
     [Header("Fishing")]
-    public int maxFishStorage = 10;
-    public float fishingSpeed;
+    [SerializeField] private float fishingSpeed = 10;
+    public float FishingSpeed
+    {
+        get
+        {
+            float modifier = 1;
+            for (int i = 0; i < equippedUpgrades.Count; i++)
+            {
+                modifier *= equippedUpgrades[i].fishingSpeedModifier;
+            }
+            return fishingSpeed * modifier;
+        }
+    }
+    public bool hasMagmaUpgrade = false;
+    public bool hasMagnetUpgrade = false;
 
     public FishingRodObject equippedRod;
     public FishingArea currentFishingArea;
     public FishObject fishOnHook;
 
     public List<FishObject> storedFish = new List<FishObject>();
+    public List<UpgradeObject> equippedUpgrades = new List<UpgradeObject>();
     private TimerScript fishingTimer = new TimerScript();
 
 
     [Header("Misc")]
+    public float money;
 
     [SerializeField] private RawImage gambleScreen;
     [SerializeField] private GameObject murasa;
     public AreaBaseClass currentInteractableArea;
+    public TextSpawner textspawner;
     private TimerScript gambleFadeInTimer = new TimerScript(1);
 
 
@@ -61,6 +77,8 @@ public class PlayerMovement : MonoBehaviour
         bool shutup = false;
         if (shutup)
         {
+            Debug.Log("DUDE!! WHAT ARWE OYUU DOING?!?!?? YOU CANT STELA MY CODE WTF DUDEW WHAT HTHE HECK!???!?");
+
             Debug.Log("I AM GOING INSANEEEE!!!! also hello!!! thanks for playing my game! " +
                 "if your looking at the code of it, first off i am so sorry for your eyes. " +
                 "second, you might aswell just ask me for access to the source github project on discord. " +
@@ -83,24 +101,31 @@ public class PlayerMovement : MonoBehaviour
         {
             MovementCheck();
         }
-        FishCheck();
+        InteractionCheck();
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
-            ObjectLauncher objectLauncher = new ObjectLauncher();
-            GameObject newMurasa = objectLauncher.LaunchObject(murasa);
-            newMurasa.transform.localScale = murasa.transform.lossyScale;
-            Destroy(newMurasa, 3);
-
-
+            ThrowMurasa();
         }
+        if (Input.GetKey(KeyCode.F2))
+        {
+            ThrowMurasa();
+        }
+    }
+
+    public void ThrowMurasa()
+    {
+        ObjectLauncher objectLauncher = new ObjectLauncher();
+        GameObject newMurasa = objectLauncher.LaunchObject(murasa);
+        newMurasa.transform.localScale = murasa.transform.lossyScale;
+        Destroy(newMurasa, 3);
     }
 
     private void FixedUpdate()
     {
         if (desiredDirection != Vector2.zero)
         {
-            Vector3 force = new Vector3(desiredDirection.x, 0, desiredDirection.y) * acceleration;
+            Vector3 force = new Vector3(desiredDirection.x, 0, desiredDirection.y) * acceleration * equippedRod.speedModifier;
             rigidBody.AddForce(force, ForceMode.Acceleration);
             rigidBody.drag = 0.10f;
         }
@@ -167,11 +192,16 @@ public class PlayerMovement : MonoBehaviour
         boatVisuals.rotation = Quaternion.Lerp(boatVisuals.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    private void FishCheck() //i heart coroutines
+    private void InteractionCheck() //i heart coroutines
     {
         fishingTimer.Update();
         gambleFadeInTimer.Update();
 
+
+        if (Input.GetKeyDown(KeyCode.F) && currentInteractableArea != null && GameManager.Gamestate == Gamestate.MovingOnMap)
+        {
+            currentInteractableArea.Interact();
+        }
 
         //start fishing
         if (Input.GetKeyDown(KeyCode.F) && currentFishingArea != null && GameManager.Gamestate == Gamestate.MovingOnMap)
@@ -192,15 +222,26 @@ public class PlayerMovement : MonoBehaviour
         //start reeling fish
         if (fishingTimer.CompletionStatus && GameManager.Gamestate == Gamestate.Fishing)
         {
-            fishOnHook = currentFishingArea.FishInArea(this);
-            if (fishOnHook != null)
+            if(currentFishingArea != null)
             {
-                StartCoroutine(StartReeling());
+                fishOnHook = currentFishingArea.FishInArea(this);
+                if (fishOnHook != null)
+                {
+                    StartCoroutine(StartReeling());
+                }
+                else
+                {
+                    StartCoroutine(FinishFishing());
+                    textspawner.CreateText("Fish was to difficult to catch");
+                }
             }
             else
             {
+                textspawner.CreateText("you gotta fish IN the fishing area...");
                 StartCoroutine(FinishFishing());
             }
+            
+
         }
 
         //stop looking at fish, move again on map
@@ -211,13 +252,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void InteractCheck()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && currentInteractableArea != null)
-        {
-            currentInteractableArea.Interact();
-        }
-    }
 
     #region Coroutines 
     //JAG... ÄLSKAR... COROUTINES!!!!
@@ -247,6 +281,7 @@ public class PlayerMovement : MonoBehaviour
         animator.PlayAnimation(PlayerAnimationHandler.FISHING_TO_IDLE); //start transitionToFishing animation
         SoundManager.instance.PlayMusic(1);
         Color color = Color.white;
+        fishOnHook = null;
 
         if (gambleScreen.color.a != 0)
         {
@@ -329,6 +364,7 @@ public class PlayerMovement : MonoBehaviour
 
         animator.PlayAnimation(PlayerAnimationHandler.PULL_IN_FISH);
         SoundManager.instance.PlayMusic(1);
+        storedFish.Add(fishOnHook);
         //reel to hold fish idle
         while (!isAnimationFinished)
         {
@@ -344,6 +380,7 @@ public class PlayerMovement : MonoBehaviour
 
         animator.PlayAnimation(PlayerAnimationHandler.SHOWING_FISH_TO_IDLE);
 
+        fishOnHook = null;
         Color color = gambleScreen.color;
         color.a = 0;
         gambleScreen.color = color;
