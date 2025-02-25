@@ -24,8 +24,9 @@ public class CrowArea : AreaBaseClass
         }
         
     }
-    public void Start()
+    protected override void Start()
     {
+        base.Start();
         crowTimer.runOnFinish += () => ChangeCrowState(crowNormal);
     }
     protected override void OnPlayerEnter()
@@ -36,10 +37,12 @@ public class CrowArea : AreaBaseClass
         }
         
     }
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         timer.Update();
         crowTimer.Update();
+        
     }
     private void ChangeCrowState(Sprite sprite)
     {

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bdd0081f773d6c4bad2f06a78c8529f, type: 3}
+  m_Name: SlowRod
+  m_EditorClassIdentifier: 
+  rodName: slow rod
+  rodDescription: i am sloooow
+  strength: 10
+  sizeModifier: 1
+  speedModifier: 1.4
+  minigameSpeed: 0.6
+  price: 200
+  slots:
+  - {fileID: 11400000, guid: b6b821b961b3ffe458bd94aa16bfaff1, type: 2}
+  - {fileID: 11400000, guid: 60dbe8e7ed5d72940adf79044a499aae, type: 2}
+  - {fileID: 11400000, guid: 022da899dc3efc443b567a682399b1d0, type: 2}
+  - {fileID: 11400000, guid: 0d61629c28789484ca78a7f2b0f5432f, type: 2}
+  - {fileID: 11400000, guid: b154ee23e5e2d114ea21c560b5be6e8e, type: 2}
+  rodImage: {fileID: 0}

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AreaBaseClass : MonoBehaviour, Iinteractable
 {
+    private SpriteRenderer[] spriteRenderers;
+    private bool playerIsHigher = false;
+
     protected PlayerMovement Player
     {
         get
@@ -12,6 +15,15 @@ public class AreaBaseClass : MonoBehaviour, Iinteractable
         }
     }
     
+    protected virtual void Start()
+    {
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+    }
+    protected virtual void Update()
+    {
+        CheckSpriteRenderLayers();
+    }
+
     public virtual void Interact()
     {
 
@@ -45,6 +57,25 @@ public class AreaBaseClass : MonoBehaviour, Iinteractable
     protected virtual void OnPlayerExit()
     {
 
+    }
+    protected void CheckSpriteRenderLayers()
+    {
+        if (transform.position.z > Player.transform.position.z && playerIsHigher)
+        {
+            foreach (SpriteRenderer renderer in spriteRenderers)
+            {
+                renderer.sortingOrder -= 20;
+            }
+            playerIsHigher = false;
+        }
+        else if (transform.position.z < Player.transform.position.z && !playerIsHigher)
+        {
+            foreach (SpriteRenderer renderer in spriteRenderers)
+            {
+                renderer.sortingOrder += 20;
+            }
+            playerIsHigher = true;
+        }
     }
 
 }

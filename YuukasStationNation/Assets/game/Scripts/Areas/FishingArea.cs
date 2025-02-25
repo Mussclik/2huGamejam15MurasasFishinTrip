@@ -7,16 +7,18 @@ public class FishingArea : AreaBaseClass
     [SerializeField] private List<FishObject> possibleFish;
     [SerializeField] private float maxModifierDevienceOfArea;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public bool effectPlayerY;
 
+    // Start is called before the first frame update
+    protected override void Start()
+    {
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-
+        base.Update();
     }
 
     public FishObject FishInArea(PlayerMovement player)
@@ -27,15 +29,15 @@ public class FishingArea : AreaBaseClass
             fishBeingCaught.modifiers.GenerateModifiers(0.1f, maxModifierDevienceOfArea);
         }
 
-        if (player.equippedRod.strength >= fishBeingCaught.difficulty)
+        if (player.FishingStrength >= fishBeingCaught.difficulty)
         {
             Debug.LogWarning("CaughtFish");
             fishBeingCaught.modifiers.TerrainDevience = maxModifierDevienceOfArea;
+            fishBeingCaught.baseFishPrice *= Player.PriceModifier;
             return fishBeingCaught;
         }
         else
         {
-            Debug.LogWarning("FishGotAway");
             return null;
         }
     }
@@ -54,4 +56,6 @@ public class FishingArea : AreaBaseClass
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, transform.localScale.x * GetComponent<SphereCollider>().radius);
     }
+
+
 }

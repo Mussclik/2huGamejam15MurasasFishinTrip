@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rodName: ph name
   rodDescription: ph description
-  strength: 999
+  strength: 0
   sizeModifier: 5
   speedModifier: 1
   minigameSpeed: 1

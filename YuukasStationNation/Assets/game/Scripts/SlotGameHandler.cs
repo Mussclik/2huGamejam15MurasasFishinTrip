@@ -1,11 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using OpenCover.Framework.Model;
 using TMPro;
-using Unity.Mathematics;
-using Unity.Play.Publisher.Editor;
 using UnityEngine;
 
 public class SlotGameHandler : MonoBehaviour

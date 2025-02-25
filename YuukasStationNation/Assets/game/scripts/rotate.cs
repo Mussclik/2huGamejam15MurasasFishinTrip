@@ -16,7 +16,6 @@ public class rotate : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log("santaqhabibib");
         transform.Rotate(0, 0, velocity * Time.deltaTime);
         velocity += direction * speedMultiplier;
         if (velocity >= maxVelocity * speedMultiplier * ((speedMultiplier > 1) ? 5 : 1)) // this is truly horrendous

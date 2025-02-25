@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5649f9d6ca41c3846a750d75d6ad1f1e, type: 3}
+  m_Name: VOTV_shrimp
+  m_EditorClassIdentifier: 
+  fishID: 30
+  difficulty: 1
+  baseSize: 1
+  baseWeight: 1
+  baseFishPrice: 1
+  fishName: Alien Shrimp
+  description: "\u03B8i\u0153\u03B8 ge go? \r\nzu nint geh\u0153.  \u03B8i\u0153\u03B8
+    de Dr.Kel?"
+  fishImage: {fileID: 21300000, guid: 27646a54978565b45910e76d63709a94, type: 3}

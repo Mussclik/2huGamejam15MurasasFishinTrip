@@ -37,7 +37,7 @@ public class RodsListObject : ListObjectBase
 
     public override void VisualUpdate()
     {
-        itemName.text = fishingRod.name;
+        itemName.text = fishingRod.rodName;
         description.text = fishingRod.rodDescription + $" Cost: {fishingRod.price}G";
         if (isEquipped)
         {

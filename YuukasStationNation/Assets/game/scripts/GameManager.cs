@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static Gamestate gamestate;
+    [SerializeField] private bool pauseMenuIsOpen;
     public static Gamestate Gamestate
     {
         get { return gamestate; }
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     }
     public static Gamestate previousGamestate;
     public static GameManager instance;
+    [SerializeField] private GameObject pauseMenu;
 
     private void Awake()
     {
@@ -28,8 +30,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
+        {
+            MenuCheck();
+        }
     }
+    public void MenuCheck()
+    {
+        if (pauseMenuIsOpen)
+        {
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+            pauseMenuIsOpen = false;
+        }
+        else
+        {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0.000001f;
+            pauseMenuIsOpen = true;
+        }
+    }
+
+
 }
 
 public enum Gamestate

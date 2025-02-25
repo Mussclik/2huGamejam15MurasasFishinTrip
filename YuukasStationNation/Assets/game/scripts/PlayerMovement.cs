@@ -50,6 +50,30 @@ public class PlayerMovement : MonoBehaviour
             return fishingSpeed * modifier;
         }
     }
+    public int FishingStrength
+    {
+        get
+        {
+            int strength = equippedRod.strength;
+            for (int i = 0; i < equippedUpgrades.Count; i++)
+            {
+                strength += equippedUpgrades[i].difficultyChange;
+            }
+            return strength;
+        }
+    }
+    public float PriceModifier
+    {
+        get
+        {
+            float modifier = 1;
+            for (int i = 0; i < equippedUpgrades.Count; i++)
+            {
+                modifier += equippedUpgrades[i].priceModifier;
+            }
+            return modifier;
+        }
+    }
     public bool hasMagmaUpgrade = false;
     public bool hasMagnetUpgrade = false;
 
@@ -102,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
             MovementCheck();
         }
         InteractionCheck();
+        
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -119,6 +144,24 @@ public class PlayerMovement : MonoBehaviour
         GameObject newMurasa = objectLauncher.LaunchObject(murasa);
         newMurasa.transform.localScale = murasa.transform.lossyScale;
         Destroy(newMurasa, 3);
+    }
+    public void AdjustBoatYLevel()
+    {
+        if (currentFishingArea != null && currentFishingArea.effectPlayerY)
+        {
+            Vector2 playerVector = new Vector2(transform.position.x, transform.position.z);
+            Vector2 fishingVector = new Vector2(currentFishingArea.transform.position.x, currentFishingArea.transform.position.z);
+            float distance = Vector2.Distance(playerVector, fishingVector);
+            float minEffectThreshold = 0.4353f * currentFishingArea.transform.lossyScale.x;
+            distance = Mathf.Clamp(distance, 0, minEffectThreshold);
+            float percentage = (1 - (distance - 0) / (minEffectThreshold - 0));
+
+            float murasaBaseYLevel = 4.55f;
+            float MurasaEffectedYLevel = 4.81f;
+            Vector3 playerPos = transform.position;
+            playerPos.y = murasaBaseYLevel + (MurasaEffectedYLevel - murasaBaseYLevel) * percentage;
+            transform.position = playerPos;
+        }
     }
 
     private void FixedUpdate()
@@ -141,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         RotateBoatVisuals();
+        AdjustBoatYLevel();
     }
 
     private void MovementCheck()
@@ -232,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     StartCoroutine(FinishFishing());
-                    textspawner.CreateText("Fish was to difficult to catch");
+                    textspawner.CreateText("Fish was to difficult too catch");
                 }
             }
             else
@@ -330,7 +374,7 @@ public class PlayerMovement : MonoBehaviour
         color.a = 0;
         gambleScreen.color = color;
 
-        SoundManager.instance.PlayMusic(2);
+        SoundManager.instance.PlayMusic(0);
         gambleFadeInTimer.Restart();
         isAnimationFinished = false;
         GameManager.Gamestate = Gamestate.InAnimation;
