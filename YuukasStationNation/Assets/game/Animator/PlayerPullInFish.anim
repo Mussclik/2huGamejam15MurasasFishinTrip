@@ -340,7 +340,7 @@ AnimationClip:
     - time: 0
       value: {fileID: 21300000, guid: 7e3a5249f770fe54fafce5c8ecec8224, type: 3}
     - time: 0.2
-      value: {fileID: 21300000, guid: 01657b302c9881f40874e02280bb6dc4, type: 3}
+      value: {fileID: 21300000, guid: b4ccc4c8100c3ea409c9d85ced817ade, type: 3}
     attribute: m_Sprite
     path: Boat/MurasaAnchor/Murasa1
     classID: 212
@@ -472,7 +472,7 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 21300000, guid: 7e3a5249f770fe54fafce5c8ecec8224, type: 3}
-    - {fileID: 21300000, guid: 01657b302c9881f40874e02280bb6dc4, type: 3}
+    - {fileID: 21300000, guid: b4ccc4c8100c3ea409c9d85ced817ade, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
