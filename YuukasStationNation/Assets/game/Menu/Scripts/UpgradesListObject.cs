@@ -29,6 +29,7 @@ public class UpgradesListObject : ListObjectBase
             Player.equippedUpgrades.Add(upgrade);
             isOwned = true;
             isEquipped = true;
+            Player.money -= upgrade.price;
         }
         VisualUpdate();
         StoreMenuScript.instance.ResetAllVisuals();

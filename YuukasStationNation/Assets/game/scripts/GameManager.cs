@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     }
     public static Gamestate previousGamestate;
     public static GameManager instance;
+    public static bool isAnimationsDisabled;
     [SerializeField] private GameObject pauseMenu;
 
     private void Awake()
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SoundManager.instance.PlayMusic(1, true);
+        Time.timeScale = 0.000001f;
     }
 
     // Update is called once per frame

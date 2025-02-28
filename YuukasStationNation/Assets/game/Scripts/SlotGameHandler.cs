@@ -1,14 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlotGameHandler : MonoBehaviour
 {
     public static SlotGameHandler instance;
-    public float wheelSpeed;
+    [SerializeField] private float wheelSpeed;
+    public float WheelSpeed
+    {
+        get { return wheelSpeed * PlayerMovement.instance.equippedRod.minigameSpeed; }
+    }
 
     public List<SlotsObject> slots = new List<SlotsObject>();
+    [SerializeField] private List<SlotsObject> currentSlotPool = new List<SlotsObject>();
 
     public TimerScript timer = new TimerScript(10);
     public Transform timerMask;
@@ -50,6 +56,7 @@ public class SlotGameHandler : MonoBehaviour
         timerMask.position = timerTop.position;
         slotsDisplay.SetActive(true);
         fishDisplay.gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -165,13 +172,23 @@ public class SlotGameHandler : MonoBehaviour
 
     public SlotsObject RollNewSlot()
     {
-        return Instantiate(slots[UnityEngine.Random.Range(0, slots.Count)]);
+        if (currentSlotPool.Count < 1)
+        {
+            ResetSlotPool();
+        }
+
+        int randomNumber = UnityEngine.Random.Range(0, currentSlotPool.Count);
+        SlotsObject slotToReturn = Instantiate(currentSlotPool[randomNumber]);
+        currentSlotPool.RemoveAt(randomNumber);
+        return slotToReturn;
+        
     }
 
     private void ResetSlotGame()
     {
         timer.enabled = false;
         timerMask.position = timerTop.position;
+        ResetSlotPool();
     }
 
     public void StartMinigame()
@@ -212,7 +229,16 @@ public class SlotGameHandler : MonoBehaviour
         }
     }
 
-
+    public void ResetSlotPool()
+    {
+        currentSlotPool.Clear();
+        foreach (var slot in slots)
+        {
+            currentSlotPool.Add(slot);
+            currentSlotPool.Add(slot);
+            currentSlotPool.Add(slot);
+        }
+    }
 
 
 }

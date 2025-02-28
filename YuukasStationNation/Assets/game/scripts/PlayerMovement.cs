@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 modifier *= equippedUpgrades[i].fishingSpeedModifier;
             }
+            modifier *= equippedRod.speedModifier;
             return fishingSpeed * modifier;
         }
     }
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
     public List<FishObject> storedFish = new List<FishObject>();
     public List<UpgradeObject> equippedUpgrades = new List<UpgradeObject>();
-    private TimerScript fishingTimer = new TimerScript();
+    [SerializeField] private TimerScript fishingTimer = new TimerScript();
 
 
     [Header("Misc")]
@@ -384,8 +385,8 @@ public class PlayerMovement : MonoBehaviour
 
         //start fading in gambling screen animation
         //begin ultra epic fishing music
-
-        while (!gambleFadeInTimer.CompletionStatus)
+        
+        while (!gambleFadeInTimer.CompletionStatus && !GameManager.isAnimationsDisabled)
         {
             color.a = gambleFadeInTimer.Progress();
             gambleScreen.color = color;
@@ -447,8 +448,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void AnimationSetup()
     {
-        isAnimationFinished = false;
-        GameManager.Gamestate = Gamestate.InAnimation;
+        if (GameManager.isAnimationsDisabled)
+        {
+            isAnimationFinished = true;
+        }
+        else
+        {
+            isAnimationFinished = false;
+            GameManager.Gamestate = Gamestate.InAnimation;
+        }
+
     }
 
     public void FinishAnimation()

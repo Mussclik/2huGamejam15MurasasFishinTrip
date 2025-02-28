@@ -30,6 +30,7 @@ public class RodsListObject : ListObjectBase
             Player.equippedRod = fishingRod;
             isOwned = true;
             isEquipped = true;
+            Player.money -= fishingRod.price;
         }
         VisualUpdate();
         StoreMenuScript.instance.ResetAllVisuals();

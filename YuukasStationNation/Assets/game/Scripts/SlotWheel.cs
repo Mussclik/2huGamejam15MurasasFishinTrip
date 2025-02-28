@@ -6,6 +6,7 @@ using UnityEngine;
 public class SlotWheel : MonoBehaviour
 {
     [SerializeField] public List<SlotGameSlot> slots = new List<SlotGameSlot>();
+
     [SerializeField] private List<Vector3> startPositions = new List<Vector3>();
     private Vector3 bottomPos;
     private Vector3 topPos;
@@ -56,7 +57,7 @@ public class SlotWheel : MonoBehaviour
             {
                 slot.transform.position = new Vector3(
                     slot.transform.position.x,
-                    slot.transform.position.y - topToBottomDistance * Time.deltaTime * SlotGameHandler.instance.wheelSpeed,
+                    slot.transform.position.y - topToBottomDistance * Time.deltaTime * SlotGameHandler.instance.WheelSpeed,
                     slot.transform.position.z);
 
                 if (slot.transform.position.y < bottomPos.y)

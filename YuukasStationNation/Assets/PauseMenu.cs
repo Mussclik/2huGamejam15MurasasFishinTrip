@@ -16,6 +16,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Slider masterVolume;
     [SerializeField] private Slider musicVolume;
     [SerializeField] private Slider generalVolume;
+
+    [SerializeField] private Toggle isAnimationsDisabled;
     private void Start()
     {
         resumeButton.onClick.AddListener(GameManager.instance.MenuCheck);
@@ -27,11 +29,15 @@ public class PauseMenu : MonoBehaviour
         musicVolume.onValueChanged.AddListener((float value) => SoundManager.instance.ChangeMusicVolume(value));
         generalVolume.onValueChanged.AddListener((float value) => SoundManager.instance.ChangeGeneralVolume(value));
 
+        isAnimationsDisabled.onValueChanged.AddListener((bool value) => GameManager.isAnimationsDisabled = value);
+
         SoundManager.instance.ChangeMasterVolume(masterVolume.value);
         SoundManager.instance.ChangeMusicVolume(musicVolume.value);
         SoundManager.instance.ChangeGeneralVolume(generalVolume.value);
 
-
+        #if UNITY_WEBGL
+        quitButton.gameObject.SetActive(false);
+        #endif
     }
     private void OnEnable()
     {
