@@ -62,7 +62,18 @@ public class SlotGameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Gamestate == Gamestate.ActivelyCatchingFish && Input.GetKeyDown(KeyCode.F))
+        //OnInteraction();
+
+        if (gamblingState == GamblingState.Gambling)
+        {
+            timer.Update();
+            timerMask.position = Vector3.Lerp(timerTop.position, timerBottom.position, timer.Progress());
+        }
+    }
+
+    public void OnInteraction()
+    {
+        if (GameManager.Gamestate == Gamestate.ActivelyCatchingFish)
         {
 
             if (gamblingState == GamblingState.NotStarted)
@@ -73,19 +84,13 @@ public class SlotGameHandler : MonoBehaviour
             }
             else if (gamblingState == GamblingState.Gambling)
             {
-                
+
                 ProgressWheelSpinning();
             }
             else if (gamblingState == GamblingState.Finished)
             {
                 FinishMinigame(true);
             }
-        }
-
-        if (gamblingState == GamblingState.Gambling)
-        {
-            timer.Update();
-            timerMask.position = Vector3.Lerp(timerTop.position, timerBottom.position, timer.Progress());
         }
     }
 

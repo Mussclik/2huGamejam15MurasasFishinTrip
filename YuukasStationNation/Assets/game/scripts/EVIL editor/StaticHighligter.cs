@@ -52,6 +52,14 @@ public class StaticHighlighter : EditorWindow
         {
             EditorGUILayout.HelpBox("Rigidbody not found on PlayerMovement instance.", MessageType.Warning);
         }
+        if (PlayerMovement.instance != null)
+        {
+            EditorGUILayout.Vector3Field("Player Desired Velocity", PlayerMovement.instance.DesiredDirection);
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("PlayerMovement instance ist null.", MessageType.Warning);
+        }
 
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("Current Fishing Area", EditorStyles.boldLabel);

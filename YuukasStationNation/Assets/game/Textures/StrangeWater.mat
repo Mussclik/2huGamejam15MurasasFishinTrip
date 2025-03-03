@@ -39,7 +39,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _InterceptionDepth: 0.79
     m_Colors:
-    - _InterceptionColor: {r: 2.468059, g: 0, b: 6.8679256, a: 1}
+    - _InterceptionColor: {r: 2.468059, g: 0, b: 6.8679256, a: 0.03529412}
   m_BuildTextureStacks: []

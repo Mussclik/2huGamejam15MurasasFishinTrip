@@ -53,5 +53,5 @@ Material:
     - _BUILTIN_ZWriteControl: 0
     - _InterceptionDepth: 0.99
     m_Colors:
-    - _InterceptionColor: {r: 6.4876556, g: 3.7717068, b: 0, a: 1}
+    - _InterceptionColor: {r: 6.4876556, g: 3.7717068, b: 0, a: 0.09411765}
   m_BuildTextureStacks: []

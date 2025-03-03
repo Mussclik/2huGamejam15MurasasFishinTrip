@@ -41,5 +41,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _InterceptionColor: {r: 0, g: 0.37300414, b: 6.867925, a: 1}
+    - _InterceptionColor: {r: 0, g: 0.37300414, b: 6.867925, a: 0.16862746}
   m_BuildTextureStacks: []

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public partial class PlayerMovement : MonoBehaviour
 {
     //organize? nah, id put it in randomly when needed.
     public static PlayerMovement instance;
@@ -16,7 +16,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float drag = 1f;
     [SerializeField] private Vector2 currentVelocity = Vector2.zero;
     [SerializeField] private Vector2 desiredDirection = Vector2.zero;
-
+    public Vector2 DesiredDirection
+    {
+        get { return desiredDirection + UICanvasControllerInput.instance.desiredDirection; }
+        set { }
+    }
     [SerializeField] private Rigidbody rigidBody;
 
     [Header("Boat Rotation Visuals")]
@@ -116,18 +120,21 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         //rigidBody.drag = drag; // Use Unity's built-in drag for smooth deceleration
+
     }
 
     // Start is called before the first frame update
     void Update()
     {
+        fishingTimer.Update();
+        gambleFadeInTimer.Update();
         desiredDirection = Vector2.zero;
         if (GameManager.Gamestate == Gamestate.MovingOnMap)
         {
             MovementCheck();
         }
-        InteractionCheck();
-        
+        //InteractionCheck();
+        FishTimerCheck();
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -167,9 +174,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (desiredDirection != Vector2.zero)
+        if (DesiredDirection != Vector2.zero)
         {
-            Vector3 force = new Vector3(desiredDirection.x, 0, desiredDirection.y) * acceleration * equippedRod.speedModifier;
+            Vector3 force = new Vector3(DesiredDirection.x, 0, DesiredDirection.y) * acceleration * equippedRod.speedModifier;
             rigidBody.AddForce(force, ForceMode.Acceleration);
             rigidBody.drag = 0.10f;
         }
@@ -190,7 +197,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovementCheck()
     {
-        
         if (Input.GetKey(KeyCode.W)) desiredDirection.y += 1;
         if (Input.GetKey(KeyCode.S)) desiredDirection.y -= 1;
         if (Input.GetKey(KeyCode.D)) desiredDirection.x += 1;
@@ -237,19 +243,18 @@ public class PlayerMovement : MonoBehaviour
         boatVisuals.rotation = Quaternion.Lerp(boatVisuals.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    private void InteractionCheck() //i heart coroutines
+    public void InteractionCheck() //i heart coroutines
     {
-        fishingTimer.Update();
-        gambleFadeInTimer.Update();
 
 
-        if (Input.GetKeyDown(KeyCode.F) && currentInteractableArea != null && GameManager.Gamestate == Gamestate.MovingOnMap)
+
+        if (GameManager.Gamestate == Gamestate.MovingOnMap)
         {
             currentInteractableArea.Interact();
         }
 
         //start fishing
-        if (Input.GetKeyDown(KeyCode.F) && currentFishingArea != null && GameManager.Gamestate == Gamestate.MovingOnMap)
+        if (GameManager.Gamestate == Gamestate.MovingOnMap && currentFishingArea != null)
         {
             StartCoroutine(StartFishing());
         }
@@ -257,17 +262,25 @@ public class PlayerMovement : MonoBehaviour
 
 
         //cancelfishing
-        else if ((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Escape)) && GameManager.Gamestate == Gamestate.Fishing)
+        else if (GameManager.Gamestate == Gamestate.Fishing)
         {
             StartCoroutine(FinishFishing());
         }
 
+        //stop looking at fish, move again on map
+        if (GameManager.Gamestate == Gamestate.LookingAtFishCaught)
+        {
+            StartCoroutine(ShowingFishToIdle());
+        }
 
+    }
 
+    private void FishTimerCheck()
+    {
         //start reeling fish
         if (fishingTimer.CompletionStatus && GameManager.Gamestate == Gamestate.Fishing)
         {
-            if(currentFishingArea != null)
+            if (currentFishingArea != null)
             {
                 fishOnHook = currentFishingArea.FishInArea(this);
                 if (fishOnHook != null)
@@ -285,18 +298,9 @@ public class PlayerMovement : MonoBehaviour
                 textspawner.CreateText("you gotta fish IN the fishing area...");
                 StartCoroutine(FinishFishing());
             }
-            
 
         }
-
-        //stop looking at fish, move again on map
-        if (Input.GetKeyDown(KeyCode.F) && GameManager.Gamestate == Gamestate.LookingAtFishCaught)
-        {
-            StartCoroutine(ShowingFishToIdle());
-        }
-
     }
-
 
     #region Coroutines 
     //JAG... ÄLSKAR... COROUTINES!!!!
