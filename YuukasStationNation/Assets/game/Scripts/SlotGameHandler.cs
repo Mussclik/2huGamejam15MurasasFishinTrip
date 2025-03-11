@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -32,6 +33,7 @@ public class SlotGameHandler : MonoBehaviour
 
     [SerializeField] private GameObject slotsDisplay;
     [SerializeField] private FishDisplay fishDisplay;
+    public bool isFirstFrameOfShowingFish = false;
 
 
     private void Awake()
@@ -231,7 +233,15 @@ public class SlotGameHandler : MonoBehaviour
             fishDisplay.fish = PlayerMovement.instance.fishOnHook;
             fishDisplay.gameObject.SetActive(true);
             slotsDisplay.SetActive(false);
+            StartCoroutine(DisplayFishFix());
         }
+    }
+
+    private IEnumerator DisplayFishFix()
+    {
+        isFirstFrameOfShowingFish = true;
+        yield return null;
+        isFirstFrameOfShowingFish = false;
     }
 
     public void ResetSlotPool()

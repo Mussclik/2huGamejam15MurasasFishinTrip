@@ -144,6 +144,10 @@ public partial class PlayerMovement : MonoBehaviour
         {
             ThrowMurasa();
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            InteractionCheck();
+        }
     }
 
     public void ThrowMurasa()
@@ -259,8 +263,6 @@ public partial class PlayerMovement : MonoBehaviour
             StartCoroutine(StartFishing());
         }
 
-
-
         //cancelfishing
         else if (GameManager.Gamestate == Gamestate.Fishing)
         {
@@ -268,7 +270,7 @@ public partial class PlayerMovement : MonoBehaviour
         }
 
         //stop looking at fish, move again on map
-        if (GameManager.Gamestate == Gamestate.LookingAtFishCaught)
+        if (GameManager.Gamestate == Gamestate.LookingAtFishCaught && !SlotGameHandler.instance.isFirstFrameOfShowingFish)
         {
             StartCoroutine(ShowingFishToIdle());
         }
