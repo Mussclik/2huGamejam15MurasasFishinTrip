@@ -30,7 +30,7 @@ public class EncyclopediaPage : MonoBehaviour
 
     public void UpdateVisuals()
     {
-        if (idOfFishhcsd == -1) return;
+        //if (idOfFishhcsd == -1) return;
 
         if (amountCaught > 0)
         {
@@ -44,7 +44,7 @@ public class EncyclopediaPage : MonoBehaviour
     
     public bool RegisterFishCaught()
     {
-
+        throw new System.Exception("Not Implemented");
     }
 }
 
