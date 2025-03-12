@@ -9,6 +9,7 @@ public class FishObject : ScriptableObject
     public float baseSize;
     public float baseWeight;
     public float baseFishPrice;
+    
     public FishModifiers modifiers = new FishModifiers();
 
     public float Size
@@ -25,6 +26,8 @@ public class FishObject : ScriptableObject
     }
     public string fishName;
     [TextArea] public string description;
+    public string Refrence;
+
     public Sprite fishImage; // Use Sprite for UI, but you can switch to Texture2D if needed
 }
 

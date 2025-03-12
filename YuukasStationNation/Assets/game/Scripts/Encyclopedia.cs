@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Encyclopedia : MonoBehaviour
 {
+    public static Encyclopedia instance;
+    private int pageNumber = 0;
+    [SerializeField] private EncyclopediaGameobject leftPage;
+    [SerializeField] private EncyclopediaGameobject rightPage;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        instance = this;
     }
-
-    // Update is called once per frame
-    void Update()
+    public void TurnPage(int idOfLeftPage)
     {
-        
+
     }
 }
