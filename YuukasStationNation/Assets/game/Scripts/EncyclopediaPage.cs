@@ -1,40 +1,56 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class EncyclopediaPage : MonoBehaviour
+
+[Serializable]
+public class EncyclopediaPage
 {
     public int amountCaught = 0;
-    public Biome biome;
-    public int idOfFish;
-    public FishObject fish;
+    public int fishID = -99;
+
 
     public float largestSize = 0f;
     public float largestWeight = 0f;
 
-    public GameObject informationDisplayObject;
-
-    private void OnEnable()
+    public EncyclopediaPage(int givenID)
     {
-        UpdateVisuals();
+        fishID = givenID;
     }
 
-    public void UpdateVisuals()
+    public FishObject Fish
     {
-        //if (idOfFishhcsd == -1) return;
-
+        get
+        {
+            return GameManager.instance.GetFish(fishID);
+        }
     }
-    
-    public bool RegisterFishCaught()
+
+
+    /// <summary>
+    /// Returns (isNewLargestFish, isNewHeaviestFish) and registers the fish into the index.
+    /// </summary>
+    /// <param name="newFish"></param>
+    /// <returns></returns>
+    public (bool, bool) RegisterFishCaught(FishObject newFish)
     {
-        throw new System.Exception("Not Implemented");
+        bool newlargestSize = false;
+        bool newlargestWeight = false;
+        
+        amountCaught++;
+        if (largestSize < newFish.Size)
+        {
+            largestSize = newFish.Size;
+            newlargestSize = true;
+        }
+        if (largestWeight < newFish.Weight)
+        {
+            largestWeight = newFish.Weight;
+            newlargestWeight = true;
+        }
+        return (newlargestSize, newlargestWeight);
     }
 }
 
-public enum Biome
-{
-    Normal,
-    BloodWhells,
-    Strange,
-}

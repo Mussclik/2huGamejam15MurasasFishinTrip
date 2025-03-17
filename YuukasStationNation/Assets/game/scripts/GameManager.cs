@@ -6,6 +6,28 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static Gamestate gamestate;
+    private void Awake()
+    {
+        instance = this;
+    }
+    void Start()
+    {
+        SoundManager.instance.PlayMusic(1, true);
+        Time.timeScale = 0.000001f;
+
+        fishList.Sort(SortFishByBiome);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
+        {
+            MenuCheck();
+        }
+    }
+
+
+    #region PlayerStatesFunctions
     [SerializeField] private bool pauseMenuIsOpen;
     public static Gamestate Gamestate
     {
@@ -17,26 +39,10 @@ public class GameManager : MonoBehaviour
     public static bool isAnimationsDisabled;
     [SerializeField] private GameObject pauseMenu;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+
 
     // Start is called before the first frame update
-    void Start()
-    {
-        SoundManager.instance.PlayMusic(1, true);
-        Time.timeScale = 0.000001f;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
-        {
-            MenuCheck();
-        }
-    }
     public void MenuCheck()
     {
         if (pauseMenuIsOpen)
@@ -52,7 +58,43 @@ public class GameManager : MonoBehaviour
             pauseMenuIsOpen = true;
         }
     }
+    #endregion
 
+    #region EncyclopediaFunctions
+    [SerializeField] public List<FishObject> fishList;
+    [SerializeField] public List<EncyclopediaPage> fishEncyclopediaList;
+    
+
+    public int SortFishByBiome(FishObject firstFish, FishObject secondFish)
+    {
+        return ((int)firstFish.biome).CompareTo((int)secondFish.biome);
+    }
+    public void CreateFishPages()
+    {
+        for (int i = 0; i < fishList.Count; i++)
+        {
+            fishList[i].fishID = i;
+            EncyclopediaPage newPage = new EncyclopediaPage(i);
+
+            fishEncyclopediaList.Add(newPage);
+        }
+    }
+
+    public FishObject GetFish(int id)
+    {
+        if (id < 0)
+        {
+            var newFish = new FishObject();
+            newFish.fishName = "man, someone is broken :(";
+            newFish.description = "man, someone like very broken :(";
+            newFish.refrence = "my bad skills";
+            newFish.fishID = id;
+            return newFish;
+        }
+        return fishList[id];
+    }
+
+    #endregion
 
 }
 
@@ -66,5 +108,11 @@ public enum Gamestate
     InIngameMenu,
     InPauseMenu,
     InTransition,
+}
+public enum Biome
+{
+    Normal = 0,
+    BloodWhells = 1,
+    Strange = 2,
 }
 

@@ -356,8 +356,8 @@ RectTransform:
   m_Children:
   - {fileID: 1424258919559612036}
   - {fileID: 4544371075804716957}
-  - {fileID: 6597128887022794667}
   - {fileID: 9171150610342535188}
+  - {fileID: 1389301310523175677}
   - {fileID: 5587734281048957981}
   - {fileID: 7518648758800564357}
   - {fileID: 1735787055589912563}
@@ -769,7 +769,7 @@ RectTransform:
   - {fileID: 8872037570171218801}
   - {fileID: 4070556045639906104}
   - {fileID: 5464040512375411398}
-  - {fileID: 1817632936840270605}
+  - {fileID: 6597128887022794667}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -789,6 +789,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4f297740bb51a4087e491aa1ed98a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idAndNameText: {fileID: 6289998606543232377}
+  refrenceText: {fileID: 1390949122540142403}
+  zoneCaughtText: {fileID: 2211760647502352990}
+  amountCaughtText: {fileID: 7101884039296635742}
+  descriptionsText: {fileID: 1848593940155776385}
+  difficultyText: {fileID: 4673160993652930119}
+  maxSizeText: {fileID: 68072523532709814}
+  maxWeightText: {fileID: 8086087100853986146}
+  fishSprite: {fileID: 2466537340243471559}
+  visualObject: {fileID: 2369115492686451601}
 --- !u!114 &5768928041334193988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,19 +813,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountCaught: 0
   biome: 0
-  idOfFish: 0
-  idAndNameText: {fileID: 0}
-  refrenceText: {fileID: 0}
-  zoneCaughtText: {fileID: 0}
-  amountCaughtText: {fileID: 0}
-  descriptionsText: {fileID: 0}
-  difficultyText: {fileID: 0}
-  maxSizeText: {fileID: 0}
-  maxWeightText: {fileID: 0}
-  fishSprite: {fileID: 0}
+  idOfFish: -99
+  fish: {fileID: 11400000, guid: 3453fd1825ca24945a70e776f8530eaa, type: 2}
   largestSize: 0
   largestWeight: 0
-  informationDisplayObject: {fileID: 0}
+  informationDisplayObject: {fileID: 2369115492686451601}
 --- !u!1 &5020606950057215443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6597128887022794667}
   m_Layer: 5
-  m_Name: RecordsWideBehind (1)
+  m_Name: Region and diff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1071,8 +1073,8 @@ RectTransform:
   - {fileID: 3661802303225405203}
   - {fileID: 4201261575829277380}
   - {fileID: 843911044189772827}
-  - {fileID: 1389301310523175677}
-  m_Father: {fileID: 8872037570171218801}
+  - {fileID: 1817632936840270605}
+  m_Father: {fileID: 7740309037520387932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1429,7 +1431,7 @@ GameObject:
   - component: {fileID: 2960211753037021322}
   - component: {fileID: 7101884039296635742}
   m_Layer: 5
-  m_Name: Description (2)
+  m_Name: Amount caught
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1447,11 +1449,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6597128887022794667}
+  m_Father: {fileID: 8872037570171218801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 141.3, y: -22.2}
+  m_AnchoredPosition: {x: -177, y: -388}
   m_SizeDelta: {x: 273.3, y: 77.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2960211753037021322
@@ -1509,14 +1511,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1545,7 +1547,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 66.886536, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1563,7 +1565,7 @@ GameObject:
   - component: {fileID: 5551051697067575210}
   - component: {fileID: 4673160993652930119}
   m_Layer: 5
-  m_Name: Diff (1)
+  m_Name: Skill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1581,11 +1583,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7740309037520387932}
+  m_Father: {fileID: 6597128887022794667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -188.4, y: -452.9}
+  m_AnchoredPosition: {x: 138, y: -86}
   m_SizeDelta: {x: 654.3, y: 239.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5551051697067575210
@@ -1697,7 +1699,7 @@ GameObject:
   - component: {fileID: 2493276252951130261}
   - component: {fileID: 6289998606543232377}
   m_Layer: 5
-  m_Name: CreditsText
+  m_Name: nameAndID
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2302,7 +2304,7 @@ GameObject:
   - component: {fileID: 172861235155030599}
   - component: {fileID: 2211760647502352990}
   m_Layer: 5
-  m_Name: Description (1)
+  m_Name: Region
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2436,7 +2438,7 @@ GameObject:
   - component: {fileID: 1649256854304904774}
   - component: {fileID: 2713785619729070271}
   m_Layer: 5
-  m_Name: Border
+  m_Name: Divider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Fish", menuName = "Fishing/Fish Object")]
+[CreateAssetMenu(fileName = "New Fish", menuName = "Fishing/Fish Object"), Serializable]
 public class FishObject : ScriptableObject
 {
     public int fishID;
@@ -9,6 +10,8 @@ public class FishObject : ScriptableObject
     public float baseSize;
     public float baseWeight;
     public float baseFishPrice;
+
+    public Biome biome;
     
     public FishModifiers modifiers = new FishModifiers();
 
@@ -26,7 +29,7 @@ public class FishObject : ScriptableObject
     }
     public string fishName;
     [TextArea] public string description;
-    public string Refrence;
+    public string refrence;
 
     public Sprite fishImage; // Use Sprite for UI, but you can switch to Texture2D if needed
 }
@@ -47,16 +50,16 @@ public class FishModifiers
     /// <param name="max">maximum modifier</param>
     public void GenerateModifiers(float min = 0.8f, float max = 1.2f)
     {
-        weight = Random.Range(min, max);
+        weight = UnityEngine.Random.Range(min, max);
         weight *= (weight > 1) ? 0.5f : 2f;
-        size = Random.Range(min, max);
+        size = UnityEngine.Random.Range(min, max);
         weight *= (size > 1) ? 0.5f : 2f;
-        price = Random.Range(min, max);
+        price = UnityEngine.Random.Range(min, max);
         weight *= (price > 1) ? 0.5f : 2f;
 
 
         TerrainDevience = Mathf.Abs(TerrainDevience);
-        terrainModifier = 1 + Random.Range(-TerrainDevience, TerrainDevience);
+        terrainModifier = 1 + UnityEngine.Random.Range(-TerrainDevience, TerrainDevience);
 
         weight *= terrainModifier * slotsMultiplier;
         size *= terrainModifier * slotsMultiplier;
