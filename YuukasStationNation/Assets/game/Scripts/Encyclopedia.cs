@@ -14,8 +14,18 @@ public class Encyclopedia : MonoBehaviour
     [SerializeField] private Color buttonEnabledColour;
     [SerializeField] private Vector2 buttonPosOffset;
     [SerializeField] private List<Button> buttonBiomesList;
-    [SerializeField] private Button pressedButton; 
+    [SerializeField] private List<Vector3> buttonBasePosList;
+    [SerializeField] private Button pressedButton;
     // Start is called before the first frame update
+
+    [Header("Timer")]
+
+    [SerializeField] private float duration;
+    [SerializeField] private GlobalTimer buttonMovementTimer = new GlobalTimer();
+    private GlobalTimer ButtonMovementTimer
+    {
+        get;
+    }
     private void Awake()
     {
         instance = this;
@@ -25,7 +35,7 @@ public class Encyclopedia : MonoBehaviour
     {
         for (int i = 0; i < buttonBiomesList.Count; i++)
         {
-
+            buttonBasePosList[i] = buttonBiomesList[i].transform.position;
         }
     }
 
@@ -104,9 +114,22 @@ public class Encyclopedia : MonoBehaviour
 
     public void OnButtonPress(Button button, Biome sortMode)
     {
-        if (button == )
+        //just deactivate the button and reset to all sort mode
+        if (button == pressedButton)
+        {
+            pressedButton = null;
+        }
+        else
+        {
+
+        }
+
+        //deactive pressedbutton and then switchitout for the new button that was pressed
     }
 
-
+    public void TimerSelfDestructor()
+    {
+        
+    }
 
 }

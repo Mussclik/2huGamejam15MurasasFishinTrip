@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static Gamestate gamestate;
+    public static System.Action onUpdate;
     private void Awake()
     {
         instance = this;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (onUpdate != null) onUpdate();
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
         {
             MenuCheck();

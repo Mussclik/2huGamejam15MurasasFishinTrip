@@ -36,10 +36,7 @@ public class FishingArea : AreaBaseClass
             fishBeingCaught.baseFishPrice *= Player.PriceModifier;
             return fishBeingCaught;
         }
-        else
-        {
-            return null;
-        }
+        else return null;
     }
 
     protected override void OnPlayerEnter()
