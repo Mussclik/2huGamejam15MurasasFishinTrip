@@ -16,6 +16,7 @@ public class GlobalTimer : IDisposable
     public System.Action callOnUpdate;
     public System.Action callOnFinish;
 
+    private ITimerLocalAttachable attachedScript;
     public GlobalTimer(float newDuration = 0)
     {
         ITimerStaticAttachable.onUpdate += Update;
@@ -23,6 +24,7 @@ public class GlobalTimer : IDisposable
     }
     public GlobalTimer(ITimerLocalAttachable scriptToAttachTimer, float newDuration = 0) 
     {
+        attachedScript = scriptToAttachTimer;
         scriptToAttachTimer.onUpdate += Update;
         duration = newDuration;
     }
@@ -104,19 +106,27 @@ public class GlobalTimer : IDisposable
         else elapsedTime += amount;
     }
 
-    public virtual void Start()
+    protected virtual void VirtualStart()
     {
 
     }
 
     #region disposer
-    ~GlobalTimer() //EVIL constructor, also known as deconstructor
+    ~GlobalTimer() // EVIL constructor
     {
         Dispose();
     }
     public void Dispose()
     {
-        //GameManager.onUpdate -= Update;
+        if (attachedScript != null)
+        {
+            attachedScript.onUpdate -= Update;
+        }
+        else
+        {
+            ITimerStaticAttachable.onUpdate -= Update;
+        }
+        
     }
     #endregion
 }

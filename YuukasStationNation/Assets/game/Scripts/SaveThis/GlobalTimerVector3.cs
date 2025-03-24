@@ -11,11 +11,11 @@ public class GlobalTimerVector3 : GlobalTimer
 
     public GlobalTimerVector3(ITimerLocalAttachable scriptToAttachTimer, float newDuration = 0) : base(scriptToAttachTimer, newDuration)
     {
-        Start();
+        VirtualStart();
     }
     public GlobalTimerVector3(float newDuration = 0) : base(newDuration)
     {
-        Start();
+        VirtualStart();
     }
 
     public void ChangeVectors(Vector3 newBeginningVector, Vector3 newEndingVector)
@@ -23,10 +23,11 @@ public class GlobalTimerVector3 : GlobalTimer
         beginningVector = newBeginningVector;
         endingVector = newEndingVector;
     }
-    public override void Start()
+    protected override void VirtualStart()
     {
         callOnStart += () => vectorToChange(beginningVector);
         callOnUpdate += () => vectorToChange(Vector3.Lerp(beginningVector, endingVector, animationCurve.Evaluate(PercentFinished)));
         callOnFinish += () => vectorToChange(endingVector);
     }
 }
+

@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,19 +9,21 @@ using UnityEngine.UI;
 public class Encyclopedia : MonoBehaviour
 {
     public static Encyclopedia instance;
+    [Header("pages")]
     [SerializeField] private int pageNumber = 0;
     [SerializeField] private EncyclopediaGameobject leftPage;
     [SerializeField] private EncyclopediaGameobject rightPage;
     [SerializeField] private List<EncyclopediaPage> currentPages;
+
+    [Header("Buttons")]
     [SerializeField] private Color buttonEnabledColour;
     [SerializeField] private Vector2 buttonPosOffset;
     [SerializeField] private List<Button> buttonBiomesList;
     [SerializeField] private List<Vector3> buttonBasePosList;
-    [SerializeField] private Button pressedButton;
-    // Start is called before the first frame update
+    [SerializeField] private EncyclopediaButton newlyPressedButton;
+    [SerializeField] private EncyclopediaButton unpressingButton;
 
     [Header("Timer")]
-
     [SerializeField] private float duration;
     [SerializeField] private GlobalTimer buttonMovementTimer = new GlobalTimer();
     private void Awake()
@@ -89,7 +92,7 @@ public class Encyclopedia : MonoBehaviour
         else
         {
             rightPage.everythingInfo.SetActive(true);
-            rightPage.UpdateWithNewPage(currentPages[pageNumber+1]);
+            rightPage.UpdateWithNewPage(currentPages[pageNumber + 1]);
         }
     }
 
@@ -117,10 +120,19 @@ public class Encyclopedia : MonoBehaviour
 
     public void OnButtonPress(Button button, Biome sortMode)
     {
+        //only activate when timer doesnt exist
+        if (buttonMovementTimer != null) return;
+
         //just deactivate the button and reset to all sort mode
-        if (button == pressedButton)
+        if (button == newlyPressedButton?.button)
         {
-            pressedButton = null;
+            newlyPressedButton.ReverseInfo();
+            ChangePageMode();
+            GlobalTimer timer = TimerConstructor();
+        }
+        else if (pressedButton != null)
+        {
+
         }
         else
         {
@@ -135,9 +147,115 @@ public class Encyclopedia : MonoBehaviour
         buttonMovementTimer?.Dispose();
         buttonMovementTimer = null;
     }
-    public void TimerConstructor()
+    public GlobalTimer TimerConstructor()
     {
         buttonMovementTimer = new GlobalTimer(duration);
+        buttonMovementTimer.callOnFinish += TimerDestructor;
+        return buttonMovementTimer;
     }
 
+}
+
+[Serializable]
+public class EncyclopediaButton : IDisposable
+{
+    public Button button;
+    public Vector3 startVector;
+    public Vector3 endVector;
+    public Color startColour;
+    public Color endColour;
+    public GlobalTimer timer;
+
+    public List<Image> graphicsOfButton = new List<Image>();
+
+
+    public EncyclopediaButton(Button newButton, Vector3 newStartVector, Vector3 newEndVector, Color newStartColour, Color newEndColour, GlobalTimer newTimer)
+    {
+        button = newButton;
+        startVector = newStartVector;
+        endVector = newEndVector;
+        startColour = newStartColour;
+        endColour = newEndColour;
+        timer = newTimer;
+
+        graphicsOfButton = button.gameObject.transform.GetComponentsInChildren<Image>().ToList<Image>();
+
+        timer.callOnStart += () => OnUpdate(0);
+        timer.callOnUpdate += () => OnUpdate(timer.PercentFinished);
+        timer.callOnFinish += () => OnUpdate(1);
+
+        timer.Restart();
+    }
+
+    public EncyclopediaButton(Button newButton, Vector3 newEndVector, Color newEndColour, GlobalTimer newTimer)
+    {
+        button = newButton;
+        startVector = newButton.transform.position;
+        endVector = newEndVector;
+        startColour = newButton.transform.GetComponentInChildren<Image>().color;
+        endColour = newEndColour;
+        timer = newTimer;
+
+        graphicsOfButton = button.gameObject.transform.GetComponentsInChildren<Image>().ToList<Image>();
+
+        timer.callOnStart += () => OnUpdate(0);
+        timer.callOnUpdate += () => OnUpdate(timer.PercentFinished);
+        timer.callOnFinish += () => OnUpdate(1);
+
+        timer.Restart();
+    }
+
+    public void ChangeVectors(Vector3 newStartVector, Vector3 newEndVector)
+    {
+        startVector = newStartVector;
+        endVector = newEndVector;
+    }
+
+    public void ChangeColours(Color newStartColour, Color newEndColour)
+    {
+        startColour = newStartColour;
+        endColour = newEndColour;
+    }
+
+    public void ReverseInfo()
+    {
+        Color temp;
+        temp = startColour;
+        startColour = endColour;
+        endColour = temp;
+
+        Vector3 coolerTemp;
+        coolerTemp = startVector;
+        startVector = endVector;
+        endVector = coolerTemp;
+    }
+
+    public void OnUpdate(float percentFinished)
+    {
+        Color colour = Color.Lerp(startColour, endColour, percentFinished);
+        Vector3 vector = Vector3.Lerp(startVector, endVector, percentFinished);
+
+        foreach (Image image in graphicsOfButton)
+        {
+            image.color = colour;
+        }
+
+        button.transform.position = vector;
+
+    }
+
+    ~EncyclopediaButton()
+    {
+        Dispose();
+    }
+    public void Dispose()
+    {
+        if (timer != null)
+        {
+            timer.callOnStart -= () => OnUpdate(0);
+            timer.callOnUpdate -= () => OnUpdate(timer.PercentFinished);
+            timer.callOnFinish -= () => OnUpdate(1);
+        }
+
+    }
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FishingArea : AreaBaseClass
 {
-    [SerializeField] private List<FishObject> possibleFish;
+    //[SerializeField] private List<FishObject> possibleFish;
     [SerializeField] private float maxModifierDevienceOfArea;
+    [SerializeField] private Biome biome;
 
     public bool effectPlayerY;
 
@@ -23,7 +24,9 @@ public class FishingArea : AreaBaseClass
 
     public FishObject FishInArea(PlayerMovement player)
     {
-        FishObject fishBeingCaught = Instantiate(possibleFish[Random.Range(0, possibleFish.Count)]);
+        //FishObject fishBeingCaught = Instantiate(possibleFish[Random.Range(0, possibleFish.Count)]);
+
+        FishObject fishBeingCaught = GameManager.instance.GetFishByBiome(biome, Player.FishingStrength);
         if (fishBeingCaught != null)
         {
             fishBeingCaught.modifiers.GenerateModifiers(0.1f, maxModifierDevienceOfArea);
