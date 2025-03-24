@@ -17,6 +17,8 @@ MonoBehaviour:
   baseSize: 1
   baseWeight: 1
   baseFishPrice: 1
+  biome: 2
   fishName: Untextured Bass
   description: lazy gamedevs!
+  refrence: 
   fishImage: {fileID: 21300000, guid: 6fa02a51dbfddbb469ad0ec04a6ab700, type: 3}

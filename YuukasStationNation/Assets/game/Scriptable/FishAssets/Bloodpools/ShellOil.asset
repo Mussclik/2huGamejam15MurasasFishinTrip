@@ -17,6 +17,8 @@ MonoBehaviour:
   baseSize: 1
   baseWeight: 1
   baseFishPrice: 1
+  biome: 1
   fishName: Defenetly Unbranded Oil
   description: Some consider it a delightful treat!
+  refrence: 
   fishImage: {fileID: 21300000, guid: c541cfddb92fd484a9f0b1f7a89189d5, type: 3}

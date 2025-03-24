@@ -17,6 +17,8 @@ MonoBehaviour:
   baseSize: 1
   baseWeight: 1
   baseFishPrice: 1
+  biome: 2
   fishName: Glitchy Bass
   description: uh.. looks a bit strange
+  refrence: 
   fishImage: {fileID: 21300000, guid: dcb944d8ce8f5174baf6254c73446394, type: 3}

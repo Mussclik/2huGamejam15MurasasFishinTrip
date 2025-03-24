@@ -17,7 +17,9 @@ MonoBehaviour:
   baseSize: 1
   baseWeight: 1
   baseFishPrice: 1
+  biome: 2
   fishName: uhh... a placeholder??
   description: erm... i think you should loudly yell at the dev for leaving this
     in the game
+  refrence: 
   fishImage: {fileID: 21300000, guid: 064aae2ef8770464bbcd9dd360fe88e1, type: 3}

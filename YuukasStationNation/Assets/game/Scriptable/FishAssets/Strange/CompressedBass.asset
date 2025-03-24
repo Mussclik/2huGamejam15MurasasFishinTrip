@@ -17,6 +17,8 @@ MonoBehaviour:
   baseSize: 0.5
   baseWeight: 5
   baseFishPrice: 3
+  biome: 2
   fishName: Compressed bass
   description: There is so much fish packed into this fish.
+  refrence: 
   fishImage: {fileID: 21300000, guid: 57bce61600aa498419e77a68e3cc0207, type: 3}

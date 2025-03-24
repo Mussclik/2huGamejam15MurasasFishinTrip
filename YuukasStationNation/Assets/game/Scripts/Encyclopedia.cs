@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,10 +23,6 @@ public class Encyclopedia : MonoBehaviour
 
     [SerializeField] private float duration;
     [SerializeField] private GlobalTimer buttonMovementTimer = new GlobalTimer();
-    private GlobalTimer ButtonMovementTimer
-    {
-        get;
-    }
     private void Awake()
     {
         instance = this;
@@ -33,9 +30,15 @@ public class Encyclopedia : MonoBehaviour
 
     private void Start()
     {
+        buttonBasePosList = new Vector3[buttonBiomesList.Count].ToList();
         for (int i = 0; i < buttonBiomesList.Count; i++)
         {
             buttonBasePosList[i] = buttonBiomesList[i].transform.position;
+        }
+        for (int i = 0; i < Enum.GetNames(typeof(Biome)).Length; i++)
+        {
+            Debug.Log($"interpreting {buttonBiomesList[i].name} as {(Biome)i}");
+            buttonBiomesList[i].onClick.AddListener(() => OnButtonPress(buttonBiomesList[i], (Biome)i));
         }
     }
 
@@ -85,8 +88,8 @@ public class Encyclopedia : MonoBehaviour
         }
         else
         {
-            rightPage.UpdateWithNewPage(currentPages[pageNumber+1]);
             rightPage.everythingInfo.SetActive(true);
+            rightPage.UpdateWithNewPage(currentPages[pageNumber+1]);
         }
     }
 
@@ -127,9 +130,14 @@ public class Encyclopedia : MonoBehaviour
         //deactive pressedbutton and then switchitout for the new button that was pressed
     }
 
-    public void TimerSelfDestructor()
+    public void TimerDestructor()
     {
-        
+        buttonMovementTimer?.Dispose();
+        buttonMovementTimer = null;
+    }
+    public void TimerConstructor()
+    {
+        buttonMovementTimer = new GlobalTimer(duration);
     }
 
 }

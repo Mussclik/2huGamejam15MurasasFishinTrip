@@ -1,5 +1,4 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -17,11 +16,18 @@ public class GlobalTimer : IDisposable
     public System.Action callOnUpdate;
     public System.Action callOnFinish;
 
-    public GlobalTimer(float newDuration = 0) 
+    public GlobalTimer(float newDuration = 0)
     {
-        GameManager.onUpdate += Update;
+        ITimerStaticAttachable.onUpdate += Update;
         duration = newDuration;
     }
+    public GlobalTimer(ITimerLocalAttachable scriptToAttachTimer, float newDuration = 0) 
+    {
+        scriptToAttachTimer.onUpdate += Update;
+        duration = newDuration;
+    }
+
+
     public bool IsFinished
     {
         get 
@@ -98,6 +104,11 @@ public class GlobalTimer : IDisposable
         else elapsedTime += amount;
     }
 
+    public virtual void Start()
+    {
+
+    }
+
     #region disposer
     ~GlobalTimer() //EVIL constructor, also known as deconstructor
     {
@@ -105,44 +116,7 @@ public class GlobalTimer : IDisposable
     }
     public void Dispose()
     {
-        GameManager.onUpdate -= Update;
+        //GameManager.onUpdate -= Update;
     }
     #endregion
 }
-
-#if UNITY_EDITOR
-
-[CustomPropertyDrawer(typeof(GlobalTimer))]
-public class GlobalTimer_Editor : DecoratorDrawer
-{
-    private bool editorDropdown = false;
-
-    public override void OnGUI(Rect position)
-    {
-        // Adjust the position for the foldout
-        Rect foldoutRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-        editorDropdown = EditorGUI.Foldout(foldoutRect, editorDropdown, "Debug Options");
-
-        if (editorDropdown)
-        {
-            // Adjust the position for the button
-            Rect buttonRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight, position.width * 0.5f, EditorGUIUtility.singleLineHeight);
-            if (GUI.Button(buttonRect, "Press Button"))
-            {
-                // Button functionality
-                Debug.Log("Button Pressed!");
-            }
-        }
-    }
-
-    public override float GetHeight()
-    {
-        // Calculate the height based on whether the foldout is open
-        if (editorDropdown)
-        {
-            return EditorGUIUtility.singleLineHeight * 2; // Foldout + button
-        }
-        return EditorGUIUtility.singleLineHeight; // Just the foldout
-    }
-}
-#endif

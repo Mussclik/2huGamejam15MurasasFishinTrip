@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ITimerStaticAttachable
 {
     private static Gamestate gamestate;
-    public static System.Action onUpdate;
     private void Awake()
     {
         instance = this;
@@ -21,7 +20,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (onUpdate != null) onUpdate();
+        if (ITimerStaticAttachable.onUpdate != null) ITimerStaticAttachable.onUpdate();
+
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
         {
             MenuCheck();

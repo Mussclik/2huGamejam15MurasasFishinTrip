@@ -17,6 +17,8 @@ MonoBehaviour:
   baseSize: 1
   baseWeight: 1
   baseFishPrice: 1
+  biome: 2
   fishName: Yang
   description: It seems to be looking for Yin...
+  refrence: 
   fishImage: {fileID: 21300000, guid: 7a52f8dc1e2cf664ba1e1e6311fa75b4, type: 3}

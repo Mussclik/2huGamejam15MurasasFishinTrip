@@ -17,7 +17,9 @@ MonoBehaviour:
   baseSize: 1
   baseWeight: 1
   baseFishPrice: 1
+  biome: 2
   fishName: Alien Shrimp
   description: "\u03B8i\u0153\u03B8 ge go? \r\nzu nint geh\u0153.  \u03B8i\u0153\u03B8
     de Dr.Kel?"
+  refrence: 
   fishImage: {fileID: 21300000, guid: 27646a54978565b45910e76d63709a94, type: 3}

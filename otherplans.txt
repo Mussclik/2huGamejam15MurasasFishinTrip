@@ -1,0 +1,73 @@
+
+The following is a derivative work of the "Touhou Project" series. Touhou and its characters, music and story are all owned by Team Shanghai Alice.
+
+
+-fixed speed/slow rods to work as intended
+-fixed store to actually take your money
+-added animation skip toggle in options
+-made slot machine less more fare-ish
+
+*make a REAL thumbnail for the game smh
+*add basic guide menu on how to play
+*add fish record keeper (max weights/size and if caught fish and how many unique fish have been caught)
+    -create a list of refrences from all the fish types
+
+*add difficulties, weights, sizes, and prices to fish
+*add more stuff to interact with
+    -ships that on interact start sinking (because murasa evil)
+    -myoren temple that burns down and a futo bird flying from it
+    -an ominous island with an umbrella => kogasa jumpscare and disappears
+    -Junko singing fly me to the moon and let me kick its fucking ass
+    -utsuho nuke
+    -fumo interactable
+    -rare wakasagihime flyng out the water and back in (random, non interactable)
+    -cat island that goes meow (mike, chen and orin are on it)
+    -oil rig that throws yuuma
+    -koishi island that sometimes appears and then disappears on interact
+    -special animation of a bird landing on murasa if player is idle for too long
+    -rabbit island (white bnnuy with red eyes) that makes murasa confused and changes controls backward
+
+*MORE FISH
+    -terraria voodoo doll
+    -change kogasa umbrella 
+        -creates jumpscare on player
+    -soyafish
+    -fishsticks
+    -super sea cucumber stardew valley
+    -aztec coin
+        -turn player into skeleton
+    -radioactive barrel
+        -glow green
+    -a real ass goddamns sword epithet erased
+    -banzai blaster gun epither erased
+    -epithet erased amulet
+    -teto hair drill
+    -subnautica peeper
+    -subnautica bladderfish
+    -subnautica reaper
+    -subnautica lifepod
+    -arztotskan coin
+    -jokers mask persona
+    -chibi mita miside
+    -ace attorney badge
+    -lunarian bunny ears (t-these come off??)
+    -low quality ariral poster
+    -scp mask
+    -scp 500
+    -megumins hat
+    -marisas hat
+    -senkos hair charm
+    -golden pan tf2
+    -payday mask
+    -terraria meowmere
+    -a hat in time hat
+    -hotline miami mask
+    -among us 
+    -"cbt" manual from yuuka
+    -library of ruina prescript,                        "Do not go home until you finish reading the value of E."
+    -surströmming
+    -maggiesea defective turret
+    -mr hat (koishi hat)
+
+do chemistry thing
+
