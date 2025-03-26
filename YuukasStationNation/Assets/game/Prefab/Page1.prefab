@@ -800,8 +800,8 @@ MonoBehaviour:
   maxSizeText: {fileID: 68072523532709814}
   maxWeightText: {fileID: 8086087100853986146}
   fishSprite: {fileID: 2466537340243471559}
-  fishStatisticInformation: {fileID: 0}
-  everythingInfo: {fileID: 0}
+  fishStatisticInformation: {fileID: 2369115492686451601}
+  everythingInfo: {fileID: 8219642852815616321}
 --- !u!1 &5020606950057215443
 GameObject:
   m_ObjectHideFlags: 0

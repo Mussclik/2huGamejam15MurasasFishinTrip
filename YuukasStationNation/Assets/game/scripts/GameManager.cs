@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
     {
         SoundManager.instance.PlayMusic(1, true);
         Time.timeScale = 0.000001f;
+        
 
         fishList.Sort(SortFishByBiome);
     }
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
     #region EncyclopediaFunctions
     [SerializeField] public List<FishObject> fishList;
     [SerializeField] public List<EncyclopediaPage> fishEncyclopediaList;
-    
+
 
     public int SortFishByBiome(FishObject firstFish, FishObject secondFish)
     {
@@ -80,13 +81,14 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
 
             fishEncyclopediaList.Add(newPage);
         }
+        Debug.Log("häng miug");
     }
 
     public FishObject GetFish(int id)
     {
         if (id < 0)
         {
-            var newFish = new FishObject();
+            FishObject newFish = new FishObject();
             newFish.fishName = "man, someone is broken :(";
             newFish.description = "man, someone like very broken :(";
             newFish.refrence = "my bad skills";
@@ -95,7 +97,36 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
         }
         return fishList[id];
     }
+    public FishObject GetFishByBiome(Biome biome, int fishingStrength = 0, bool isEffectedByStrength = false)
+    {
+        List<FishObject> potencialFish = new List<FishObject>();
+        foreach (FishObject fish in fishList)
+        {
+            bool validFish = true;
+            if (fish.biome != biome)
+            {
+                validFish = false;
+            }
+            if (isEffectedByStrength && fishingStrength != fish.difficulty)
+            {
+                validFish = false;
+            }
 
+            if (validFish)
+            {
+                potencialFish.Add(fish);
+            }
+        }
+
+        if (potencialFish.Count >= 1)
+        {
+            return potencialFish[UnityEngine.Random.Range(0, potencialFish.Count)];
+        }
+        else
+        {
+            return null;
+        }
+    }
     #endregion
 
 }

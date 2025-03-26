@@ -26,20 +26,16 @@ public class FishingArea : AreaBaseClass
     {
         //FishObject fishBeingCaught = Instantiate(possibleFish[Random.Range(0, possibleFish.Count)]);
 
-        FishObject fishBeingCaught = GameManager.instance.GetFishByBiome(biome, Player.FishingStrength);
+        FishObject fishBeingCaught = GameManager.instance.GetFishByBiome(biome, Player.FishingStrength, true);
         if (fishBeingCaught != null)
         {
             fishBeingCaught.modifiers.GenerateModifiers(0.1f, maxModifierDevienceOfArea);
-        }
-
-        if (player.FishingStrength >= fishBeingCaught.difficulty)
-        {
             Debug.LogWarning("CaughtFish");
             fishBeingCaught.modifiers.TerrainDevience = maxModifierDevienceOfArea;
             fishBeingCaught.baseFishPrice *= Player.PriceModifier;
-            return fishBeingCaught;
         }
-        else return null;
+
+        return fishBeingCaught;
     }
 
     protected override void OnPlayerEnter()
