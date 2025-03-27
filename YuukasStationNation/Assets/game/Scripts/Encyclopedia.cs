@@ -25,7 +25,7 @@ public class Encyclopedia : MonoBehaviour
 
     [Header("Timer")]
     [SerializeField] private float duration;
-    [SerializeField] private GlobalTimer buttonMovementTimer = new GlobalTimer();
+    [SerializeField] private GlobalTimer buttonMovementTimer = null;
     bool hasStarted;
     private void Awake()
     {
@@ -43,12 +43,16 @@ public class Encyclopedia : MonoBehaviour
         }
         for (int i = 0; i < Enum.GetNames(typeof(Biome)).Length; i++)
         {
-            // this variable is essential to make the thing not explode.
+            // this variable is essential to make the thing not explode. I dont fully know why but... it just works
             int count = i;
             Debug.Log($"interpreting {buttonBiomesList[count].name} as {(Biome)count} with i {count}, ");
  
             buttonBiomesList[i].onClick.AddListener(() => OnButtonPress(buttonBiomesList[count], (Biome)count));
         }
+        buttonMovementTimer = null;
+        pressingButton = null;
+        depressingButton = null;
+
         ChangePageMode();
         RefreshPages();
         if (buttonBiomesList.Count != Enum.GetNames(typeof(Biome)).Length)
@@ -98,18 +102,23 @@ public class Encyclopedia : MonoBehaviour
         // Update the page number
         pageNumber = newPageNumber;
 
+        UpdatePages(pageNumber);
+    }
+
+    private void UpdatePages(int pageNumberOfLeft)
+    {
         // Check if the second page should be disabled
         Debug.Log($"page count:{currentPages.Count}");
-        leftPage.UpdateWithNewPage(currentPages[pageNumber]);
+        leftPage.UpdateWithNewPage(currentPages[pageNumberOfLeft]);
 
-        if (pageNumber + 1 >= currentPages.Count)
+        if (pageNumberOfLeft + 1 >= currentPages.Count)
         {
             rightPage.everythingInfo.SetActive(false);
         }
         else
         {
             rightPage.everythingInfo.SetActive(true);
-            rightPage.UpdateWithNewPage(currentPages[pageNumber + 1]);
+            rightPage.UpdateWithNewPage(currentPages[pageNumberOfLeft + 1]);
         }
     }
 
@@ -119,8 +128,12 @@ public class Encyclopedia : MonoBehaviour
     public void ChangePageMode()
     {
         currentPages.Clear();
-        currentPages = GameManager.instance.fishEncyclopediaList;
+        foreach (EncyclopediaPage page in GameManager.instance.fishEncyclopediaList)
+        {
+            currentPages.Add((EncyclopediaPage)page.Clone());
+        }
         pageNumber = 0;
+        UpdatePages(pageNumber);
     }
 
     /// <summary>
@@ -133,9 +146,10 @@ public class Encyclopedia : MonoBehaviour
         foreach (EncyclopediaPage page in GameManager.instance.fishEncyclopediaList)
         {
             if (page.Fish.biome == biome)
-                currentPages.Add(page);
+                currentPages.Add((EncyclopediaPage)page.Clone());
         }
         pageNumber = 0;
+        UpdatePages(pageNumber);
     }
 
     public void RefreshPages()
@@ -145,46 +159,41 @@ public class Encyclopedia : MonoBehaviour
 
     public void OnButtonPress(Button button, Biome sortMode)
     {
-        try
+        Debug.Log($"buttonPressed by {button.gameObject.name} with sorting mode {sortMode}", button.gameObject);
+        //only activate when timer doesnt exist
+        if (buttonMovementTimer != null && buttonMovementTimer.PercentFinished > 0) return;
+
+        buttonMovementTimer = TimerConstructor();
+        if (pressingButton != null)
         {
-            ////only activate when timer doesnt exist
-            //if (buttonMovementTimer != null) return;
-
-            //GlobalTimer timer = TimerConstructor();
-            //if (pressingButton != null)
-            //{
-            //    pressingButton.ReverseInfo();
-            //    depressingButton = pressingButton;
-            //    depressingButton.AttachNewTimer(timer);
-            //    pressingButton = null;
-            //}
-
-
-            ////If its an already pressed button, then unpress it.
-            //if (button == depressingButton?.button)
-            //{
-            //    ChangePageMode();
-            //}
-            ////if its a new button then press it down and depress the previous one
-            //else if (button != depressingButton?.button)
-            //{
-            //    pressingButton = new EncyclopediaButton
-            //    (
-            //        button,
-            //        button.transform.position,
-            //        button.transform.position + (Vector3)buttonPosOffset,
-            //        Color.white, buttonEnabledColour,
-            //        timer
-            //    );
-
-            //    ChangePageMode(sortMode);
-            //}
-            //timer.Restart();
+            pressingButton.ReverseInfo();
+            depressingButton = pressingButton;
+            depressingButton.AttachNewTimer(buttonMovementTimer);
+            pressingButton = null;
         }
-        catch 
+
+
+        //If its an already pressed button, then unpress it.
+        if (button == depressingButton?.button)
         {
-            Debug.LogError("{0} error caugt: ");
+            ChangePageMode();
         }
+        //if its a new button then press it down and depress the previous one
+        else if (button != depressingButton?.button || depressingButton == null)
+        {
+            pressingButton = new EncyclopediaButton
+            (
+                button,
+                button.transform.position,
+                button.transform.position + (Vector3)buttonPosOffset,
+                Color.white, buttonEnabledColour,
+                buttonMovementTimer
+            );
+
+            ChangePageMode(sortMode);
+        }
+        buttonMovementTimer.Restart();
+
     }
 
     public GlobalTimer TimerConstructor()
@@ -236,9 +245,7 @@ public class EncyclopediaButton : IDisposable
 
         graphicsOfButton = button.gameObject.transform.GetComponentsInChildren<Image>().ToList<Image>();
 
-        timer.callOnStart += () => OnUpdate(0);
-        timer.callOnUpdate += () => OnUpdate(timer.PercentFinished);
-        timer.callOnFinish += () => OnUpdate(1);
+        AttachNewTimer(timer);
     }
 
     public EncyclopediaButton(Button newButton, Vector3 newEndVector, Color newEndColour, GlobalTimer newTimer)
@@ -295,11 +302,12 @@ public class EncyclopediaButton : IDisposable
         Color colour = Color.Lerp(startColour, endColour, percentFinished);
         Vector3 vector = Vector3.Lerp(startVector, endVector, percentFinished);
 
+        Debug.Log(graphicsOfButton.Count);
         foreach (Image image in graphicsOfButton)
         {
             image.color = colour;
         }
-
+        Debug.LogWarning($"{button.name}");
         button.transform.position = vector;
 
     }

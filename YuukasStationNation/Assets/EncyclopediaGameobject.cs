@@ -56,7 +56,8 @@ public class EncyclopediaGameobject : MonoBehaviour
         {
             idAndNameText.text = $"#{page.fishID} - ???";
             difficultyText.text = $"Skill lvl: {page.Fish.difficulty}";
-            
+            zoneCaughtText.text = page.Fish.biome.ToString();
+
             fishSprite.sprite = page.Fish.fishImage;
             fishSprite.color = Color.black;
 

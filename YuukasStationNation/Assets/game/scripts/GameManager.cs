@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
         SoundManager.instance.PlayMusic(1, true);
         Time.timeScale = 0.000001f;
         
+        
 
-        fishList.Sort(SortFishByBiome);
     }
 
     void Update()
@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
     }
     public void CreateFishPages()
     {
+        fishList.Sort(SortFishByBiome);
+
         for (int i = 0; i < fishList.Count; i++)
         {
             fishList[i].fishID = i;

@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 [Serializable]
-public class EncyclopediaPage
+public class EncyclopediaPage : ICloneable
 {
     public int amountCaught = 0;
     public int fishID = -99;
@@ -51,6 +51,11 @@ public class EncyclopediaPage
             newlargestWeight = true;
         }
         return (newlargestSize, newlargestWeight);
+    }
+
+    public object Clone()
+    {
+        return this.MemberwiseClone();
     }
 }
 

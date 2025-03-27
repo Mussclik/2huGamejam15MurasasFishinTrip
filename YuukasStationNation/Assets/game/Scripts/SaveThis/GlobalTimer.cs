@@ -9,6 +9,7 @@ public class GlobalTimer : IDisposable
 
     public bool isTimeScaled = false;
     public bool autoRestart = false;
+    private bool firstUpdate = true;
     [SerializeField] private bool isRunning = false;
 
 
@@ -22,7 +23,7 @@ public class GlobalTimer : IDisposable
         ITimerStaticAttachable.onUpdate += Update;
         duration = newDuration;
     }
-    public GlobalTimer(ITimerLocalAttachable scriptToAttachTimer, float newDuration = 0) 
+    public GlobalTimer(ITimerLocalAttachable scriptToAttachTimer, float newDuration = 0)
     {
         attachedScript = scriptToAttachTimer;
         scriptToAttachTimer.onUpdate += Update;
@@ -32,7 +33,7 @@ public class GlobalTimer : IDisposable
 
     public bool IsFinished
     {
-        get 
+        get
         {
             return elapsedTime >= duration;
         }
@@ -48,7 +49,7 @@ public class GlobalTimer : IDisposable
             float percent = elapsedTime / duration;
             if (percent > 1) percent = 1;
 
-            return Mathf.Round(percent * 100) * 0.01f; 
+            return Mathf.Round(percent * 100) * 0.01f;
         }
     }
 
@@ -57,13 +58,20 @@ public class GlobalTimer : IDisposable
         if (isRunning)
         {
             //callOnStart check
-            if (elapsedTime >= 0.001f && callOnStart != null) callOnStart();
+            if (firstUpdate && callOnStart != null)
+            {
+                firstUpdate = false;
+                callOnStart();
+            }
 
             //update timer
-            if (!isTimeScaled) elapsedTime += Time.deltaTime;
-            else elapsedTime += Time.deltaTime / Time.timeScale;
-            
-            if(callOnUpdate != null) callOnUpdate();
+            if (elapsedTime! >= duration)
+            {
+                if (!isTimeScaled) elapsedTime += Time.deltaTime;
+                else elapsedTime += Time.deltaTime / Time.timeScale;
+
+                if (callOnUpdate != null) callOnUpdate();
+            }
 
             //finish check
             if (elapsedTime >= duration)
@@ -83,12 +91,12 @@ public class GlobalTimer : IDisposable
     public void Restart()
     {
         elapsedTime = 0f;
-        
+        firstUpdate = true;
         isRunning = true;
     }
     public void Pause()
     {
-        isRunning=false;
+        isRunning = false;
     }
     public void Resume()
     {
@@ -126,7 +134,7 @@ public class GlobalTimer : IDisposable
         {
             ITimerStaticAttachable.onUpdate -= Update;
         }
-        
+
     }
     #endregion
 }
