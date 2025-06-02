@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour, ITimerStaticAttachable
 {
     private static Gamestate gamestate;
+    public static Action onUpdateStatic;
     private void Awake()
     {
         instance = this;
@@ -14,14 +15,16 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
     {
         SoundManager.instance.PlayMusic(1, true);
         Time.timeScale = 0.000001f;
-        
-        
+    }
+
+    public void DeclareAction()
+    {
 
     }
 
     void Update()
     {
-        if (ITimerStaticAttachable.onUpdate != null) ITimerStaticAttachable.onUpdate();
+        if (ITimerStaticAttachable.onUpdateStatic != null) ITimerStaticAttachable.onUpdateStatic();
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
         {

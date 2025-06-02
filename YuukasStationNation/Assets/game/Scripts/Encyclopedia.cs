@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,7 +47,7 @@ public class Encyclopedia : MonoBehaviour
             // this variable is essential to make the thing not explode. I dont fully know why but... it just works
             int count = i;
             Debug.Log($"interpreting {buttonBiomesList[count].name} as {(Biome)count} with i {count}, ");
- 
+
             buttonBiomesList[i].onClick.AddListener(() => OnButtonPress(buttonBiomesList[count], (Biome)count));
         }
         buttonMovementTimer = null;
@@ -164,7 +165,7 @@ public class Encyclopedia : MonoBehaviour
         if (buttonMovementTimer != null && buttonMovementTimer.PercentFinished > 0) return;
 
         buttonMovementTimer = TimerConstructor();
-        if (pressingButton != null)
+        if (pressingButton != null && pressingButton.button != null)
         {
             pressingButton.ReverseInfo();
             depressingButton = pressingButton;
@@ -184,9 +185,8 @@ public class Encyclopedia : MonoBehaviour
             pressingButton = new EncyclopediaButton
             (
                 button,
-                button.transform.position,
                 button.transform.position + (Vector3)buttonPosOffset,
-                Color.white, buttonEnabledColour,
+                buttonEnabledColour,
                 buttonMovementTimer
             );
 
@@ -227,49 +227,44 @@ public class EncyclopediaButton : IDisposable
     public Button button;
     public Vector3 startVector;
     public Vector3 endVector;
-    public Color startColour;
-    public Color endColour;
+    public List<Color> startColours = new();
+    public List<Color> pressedColours = new();
     public GlobalTimer timer;
+    private RectTransform rectTransform;
 
     public List<Image> graphicsOfButton = new List<Image>();
 
 
-    public EncyclopediaButton(Button newButton, Vector3 newStartVector, Vector3 newEndVector, Color newStartColour, Color newEndColour, GlobalTimer newTimer)
+    public EncyclopediaButton(Button newButton, Vector3 newEndVector, Color newAdditiveColour, GlobalTimer newTimer)
     {
         button = newButton;
-        startVector = newStartVector;
+        rectTransform = button.GetComponent<RectTransform>();
+        startVector = rectTransform.anchoredPosition;
         endVector = newEndVector;
-        startColour = newStartColour;
-        endColour = newEndColour;
+
         timer = newTimer;
 
         graphicsOfButton = button.gameObject.transform.GetComponentsInChildren<Image>().ToList<Image>();
-
+        Debug.Log(graphicsOfButton.Count);
+        for (int i = 0; i < graphicsOfButton.Count; i++)
+        {
+            startColours.Add(graphicsOfButton[i].color);
+            pressedColours.Add(graphicsOfButton[i].color += newAdditiveColour);
+        }
+        Debug.Log($"pre pre attaching timers {graphicsOfButton.Count}");
         AttachNewTimer(timer);
-    }
-
-    public EncyclopediaButton(Button newButton, Vector3 newEndVector, Color newEndColour, GlobalTimer newTimer)
-    {
-        button = newButton;
-        startVector = newButton.transform.position;
-        endVector = newEndVector;
-        startColour = newButton.transform.GetComponentInChildren<Image>().color;
-        endColour = newEndColour;
-        timer = newTimer;
-
-        graphicsOfButton = button.gameObject.transform.GetComponentsInChildren<Image>().ToList<Image>();
-
-        AttachNewTimer(timer);
+        Debug.Log($"post post attaching timers {graphicsOfButton.Count}");
     }
 
     public void AttachNewTimer(GlobalTimer newTimer)
     {
-        Dispose();
+        Debug.Log($"pre clearing timer {graphicsOfButton.Count}");
+        clearThings();
         timer = newTimer;
-        timer.callOnStart += () => OnUpdate(0);
-        timer.callOnUpdate += () => OnUpdate(timer.PercentFinished);
-        timer.callOnFinish += () => OnUpdate(1);
-
+        timer.callOnStart += () => OnUpdate(0, this);
+        timer.callOnUpdate += () => OnUpdate(timer.PercentFinished, this);
+        timer.callOnFinish += () => OnUpdate(1, this);
+        Debug.Log($"post attaching timers {graphicsOfButton.Count}");
     }
 
     public void ChangeVectors(Vector3 newStartVector, Vector3 newEndVector)
@@ -278,18 +273,13 @@ public class EncyclopediaButton : IDisposable
         endVector = newEndVector;
     }
 
-    public void ChangeColours(Color newStartColour, Color newEndColour)
-    {
-        startColour = newStartColour;
-        endColour = newEndColour;
-    }
-
     public void ReverseInfo()
     {
-        Color temp;
-        temp = startColour;
-        startColour = endColour;
-        endColour = temp;
+
+        List<Color> temp;
+        temp = startColours;
+        startColours = pressedColours;
+        pressedColours = temp;
 
         Vector3 coolerTemp;
         coolerTemp = startVector;
@@ -297,15 +287,20 @@ public class EncyclopediaButton : IDisposable
         endVector = coolerTemp;
     }
 
-    public void OnUpdate(float percentFinished)
+    public void OnUpdate(float percentFinished, EncyclopediaButton instance)
     {
-        Color colour = Color.Lerp(startColour, endColour, percentFinished);
+
         Vector3 vector = Vector3.Lerp(startVector, endVector, percentFinished);
 
-        Debug.Log(graphicsOfButton.Count);
-        foreach (Image image in graphicsOfButton)
+        Debug.Log($"percent finished: {percentFinished}");
+
+        EditorApplication.isPaused = true;
+
+        Debug.Log(instance.graphicsOfButton.Count);
+        for (int i = 0; i < instance.graphicsOfButton.Count; i++)
         {
-            image.color = colour;
+            Color colour = Color.Lerp(startColours[i], pressedColours[i], percentFinished);
+            graphicsOfButton[i].color = colour;
         }
         Debug.LogWarning($"{button.name}");
         button.transform.position = vector;
@@ -320,9 +315,18 @@ public class EncyclopediaButton : IDisposable
     {
         if (timer != null)
         {
-            timer.callOnStart -= () => OnUpdate(0);
-            timer.callOnUpdate -= () => OnUpdate(timer.PercentFinished);
-            timer.callOnFinish -= () => OnUpdate(1);
+            timer.callOnStart -= () => OnUpdate(0, this);
+            timer.callOnUpdate -= () => OnUpdate(timer.PercentFinished, this);
+            timer.callOnFinish -= () => OnUpdate(1, this);
+        }
+    }
+    public void clearThings()
+    {
+        if (timer != null)
+        {
+            timer.callOnStart -= () => OnUpdate(0, this);
+            timer.callOnUpdate -= () => OnUpdate(timer.PercentFinished, this);
+            timer.callOnFinish -= () => OnUpdate(1, this);
         }
     }
 }

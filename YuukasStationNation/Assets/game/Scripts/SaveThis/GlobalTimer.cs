@@ -10,23 +10,24 @@ public class GlobalTimer : IDisposable
     public bool isTimeScaled = false;
     public bool autoRestart = false;
     private bool firstUpdate = true;
+    public bool logging = true;
     [SerializeField] private bool isRunning = false;
 
 
-    public System.Action callOnStart;
-    public System.Action callOnUpdate;
-    public System.Action callOnFinish;
+    public event System.Action callOnStart;
+    public event System.Action callOnUpdate;
+    public event System.Action callOnFinish;
 
     private ITimerLocalAttachable attachedScript;
     public GlobalTimer(float newDuration = 0)
     {
-        ITimerStaticAttachable.onUpdate += Update;
+        ITimerStaticAttachable.onUpdateStatic += Update;
         duration = newDuration;
     }
     public GlobalTimer(ITimerLocalAttachable scriptToAttachTimer, float newDuration = 0)
     {
         attachedScript = scriptToAttachTimer;
-        scriptToAttachTimer.onUpdate += Update;
+        scriptToAttachTimer.onUpdateLocal += Update;
         duration = newDuration;
     }
 
@@ -55,31 +56,34 @@ public class GlobalTimer : IDisposable
 
     public void Update()
     {
+        Log("Timer, being updated call");
         if (isRunning)
         {
             //callOnStart check
             if (firstUpdate && callOnStart != null)
             {
                 firstUpdate = false;
-                callOnStart();
+                if (callOnStart != null) callOnStart();
+                Log("Timer, start call");
             }
 
             //update timer
-            if (elapsedTime! >= duration)
+            if (elapsedTime !>= duration)
             {
                 if (!isTimeScaled) elapsedTime += Time.deltaTime;
                 else elapsedTime += Time.deltaTime / Time.timeScale;
 
                 if (callOnUpdate != null) callOnUpdate();
+                Log("Timer, update call");
             }
 
             //finish check
             if (elapsedTime >= duration)
             {
                 if (callOnFinish != null) callOnFinish();
-
+                isRunning = false;
                 if (autoRestart) Restart();
-                else isRunning = false;
+                Log("Timer, finish call");
             }
         }
     }
@@ -119,6 +123,14 @@ public class GlobalTimer : IDisposable
 
     }
 
+    public void Log(object message)
+    {
+        if (logging)
+        {
+            Debug.Log(message);
+        }
+    }
+
     #region disposer
     ~GlobalTimer() // EVIL constructor
     {
@@ -128,11 +140,11 @@ public class GlobalTimer : IDisposable
     {
         if (attachedScript != null)
         {
-            attachedScript.onUpdate -= Update;
+            attachedScript.onUpdateLocal -= Update;
         }
         else
         {
-            ITimerStaticAttachable.onUpdate -= Update;
+            ITimerStaticAttachable.onUpdateStatic -= Update;
         }
 
     }
