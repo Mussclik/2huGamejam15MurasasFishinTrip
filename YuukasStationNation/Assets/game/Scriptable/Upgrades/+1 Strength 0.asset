@@ -19,4 +19,4 @@ MonoBehaviour:
   CanFishInLava: 0
   price: 50
   upgradeName: +1 Strength
-  upgradeDescription: for more difficult fish
+  upgradeDescription: for difficult fish

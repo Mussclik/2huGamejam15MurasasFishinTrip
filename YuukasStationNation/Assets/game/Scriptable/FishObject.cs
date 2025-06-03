@@ -1,5 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEditor.TerrainTools;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [CreateAssetMenu(fileName = "New Fish", menuName = "Fishing/Fish Object"), Serializable]
 public class FishObject : ScriptableObject
@@ -10,6 +15,11 @@ public class FishObject : ScriptableObject
     public float baseSize;
     public float baseWeight;
     public float baseFishPrice;
+    public string fishName;
+    [TextArea] public string description;
+    public string refrence;
+
+    public Sprite fishImage; // Use Sprite for UI, but you can switch to Texture2D if needed
 
     public Biome biome;
     
@@ -27,11 +37,6 @@ public class FishObject : ScriptableObject
     {
         get { return Mathf.Clamp(baseFishPrice * modifiers.price, baseFishPrice * 0.1f, baseFishPrice * 500f); }
     }
-    public string fishName;
-    [TextArea] public string description;
-    public string refrence;
-
-    public Sprite fishImage; // Use Sprite for UI, but you can switch to Texture2D if needed
 }
 
 public class FishModifiers
@@ -68,3 +73,31 @@ public class FishModifiers
     }
 
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(FishObject))]
+public class FishObject_Editor : Editor
+{
+    private FishObject fishObject;
+
+    private void OnEnable()
+    {
+        fishObject = (FishObject)target;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        if (fishObject.fishImage == null) return;
+        
+        Texture2D sprite = AssetPreview.GetAssetPreview(fishObject.fishImage);
+
+        GUILayout.Label(sprite, EditorStyles.boldLabel);
+        //GUI.DrawTexture(GUILayoutUtility.GetLastRect(), sprite);
+    }
+
+}
+
+#endif

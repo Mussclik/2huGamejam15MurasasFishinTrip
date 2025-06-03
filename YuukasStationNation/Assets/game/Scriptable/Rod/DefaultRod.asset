@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rodName: Standard Rod
   rodDescription: Standard Rod for a standard fisher
-  strength: 10
+  strength: 1
   sizeModifier: 1
   speedModifier: 1
   minigameSpeed: 1

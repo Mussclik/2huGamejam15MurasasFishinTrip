@@ -2,25 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GameManager : MonoBehaviour, ITimerStaticAttachable
 {
     private static Gamestate gamestate;
     public static Action onUpdateStatic;
+
+    
+    
     private void Awake()
     {
         instance = this;
     }
+    
+    
     void Start()
     {
         SoundManager.instance.PlayMusic(1, true);
         Time.timeScale = 0.000001f;
+        encyclopediaButton.onClick.AddListener(ToggleEncyclopediaState);
     }
+
 
     public void DeclareAction()
     {
 
     }
+
 
     void Update()
     {
@@ -34,7 +44,11 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
 
 
     #region PlayerStatesFunctions
+    [Header("PlayerStates")]
     [SerializeField] private bool pauseMenuIsOpen;
+    [SerializeField] private GameObject pauseMenu;
+
+
     public static Gamestate Gamestate
     {
         get { return gamestate; }
@@ -43,7 +57,6 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
     public static Gamestate previousGamestate;
     public static GameManager instance;
     public static bool isAnimationsDisabled;
-    [SerializeField] private GameObject pauseMenu;
 
 
 
@@ -54,27 +67,66 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
         if (pauseMenuIsOpen)
         {
             pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
+            TimerCheck();
             pauseMenuIsOpen = false;
         }
         else
         {
             pauseMenu.SetActive(true);
-            Time.timeScale = 0.000001f;
+            TimerCheck();
             pauseMenuIsOpen = true;
         }
     }
+
+    public void TimerCheck()
+    {
+        if (pauseMenuIsOpen || encyclopediaMenuIsOpen)
+        {
+            Time.timeScale = 0.000001f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
     #endregion
 
     #region EncyclopediaFunctions
+
+    [Header("Encyclopedia ")]
+    [SerializeField] private bool encyclopediaMenuIsOpen;
+    [SerializeField] private GameObject encyclopediaMenu;
+    [SerializeField] private Button encyclopediaButton;
+
+    [Header("FishList")]
     [SerializeField] public List<FishObject> fishList;
     [SerializeField] public List<EncyclopediaPage> fishEncyclopediaList;
 
+    public void ToggleEncyclopediaState()
+    {
+        if (!encyclopediaMenuIsOpen)
+        {
+            encyclopediaButton.gameObject.SetActive(false);
+            encyclopediaMenu.SetActive(true);
+            encyclopediaMenuIsOpen = true;
+            TimerCheck();
+        }
+        else
+        {
+            encyclopediaButton.gameObject.SetActive(true);
+            encyclopediaMenu.SetActive(false);
+            encyclopediaMenuIsOpen = false;
+            TimerCheck();
+        }
+    }
 
     public int SortFishByBiome(FishObject firstFish, FishObject secondFish)
     {
         return ((int)firstFish.biome).CompareTo((int)secondFish.biome);
     }
+    
+    
     public void CreateFishPages()
     {
         fishList.Sort(SortFishByBiome);
@@ -89,6 +141,7 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
         Debug.Log("häng miug");
     }
 
+
     public FishObject GetFish(int id)
     {
         if (id < 0)
@@ -102,9 +155,11 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
         }
         return fishList[id];
     }
+
+
     public FishObject GetFishByBiome(Biome biome, int fishingStrength = 0, bool isEffectedByStrength = false)
     {
-        List<FishObject> potencialFish = new List<FishObject>();
+        List<FishObject> potentialFish = new List<FishObject>();
         foreach (FishObject fish in fishList)
         {
             bool validFish = true;
@@ -119,22 +174,24 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
 
             if (validFish)
             {
-                potencialFish.Add(fish);
+                potentialFish.Add(fish);
             }
         }
 
-        if (potencialFish.Count >= 1)
+        if (potentialFish.Count >= 1)
         {
-            return potencialFish[UnityEngine.Random.Range(0, potencialFish.Count)];
+            return potentialFish[UnityEngine.Random.Range(0, potentialFish.Count)];
         }
         else
         {
             return null;
         }
     }
+    
     #endregion
 
 }
+
 
 public enum Gamestate
 {
@@ -147,6 +204,8 @@ public enum Gamestate
     InPauseMenu,
     InTransition,
 }
+
+
 public enum Biome
 {
     Normal = 0,

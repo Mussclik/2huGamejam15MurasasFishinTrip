@@ -28,10 +28,13 @@ public class Encyclopedia : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private GlobalTimer buttonMovementTimer = null;
     bool hasStarted;
+
+
     private void Awake()
     {
         instance = this;
     }
+
 
     private void Start()
     {
@@ -63,6 +66,7 @@ public class Encyclopedia : MonoBehaviour
         hasStarted = true;
     }
 
+
     private void OnEnable()
     {
         if (hasStarted)
@@ -74,6 +78,8 @@ public class Encyclopedia : MonoBehaviour
             }
         }
     }
+
+
     public void TurnPage(int offset)
     {
         // Calculate the new page number
@@ -106,6 +112,7 @@ public class Encyclopedia : MonoBehaviour
         UpdatePages(pageNumber);
     }
 
+
     private void UpdatePages(int pageNumberOfLeft)
     {
         // Check if the second page should be disabled
@@ -123,6 +130,7 @@ public class Encyclopedia : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// resets the page sorting mode to include all biomes
     /// </summary>
@@ -136,6 +144,7 @@ public class Encyclopedia : MonoBehaviour
         pageNumber = 0;
         UpdatePages(pageNumber);
     }
+
 
     /// <summary>
     /// resets the page sorting mode to include only specific biome
@@ -153,10 +162,12 @@ public class Encyclopedia : MonoBehaviour
         UpdatePages(pageNumber);
     }
 
+
     public void RefreshPages()
     {
         TurnPage(0);
     }
+
 
     public void OnButtonPress(Button button, Biome sortMode)
     {
@@ -196,12 +207,15 @@ public class Encyclopedia : MonoBehaviour
 
     }
 
+
     public GlobalTimer TimerConstructor()
     {
         buttonMovementTimer = new GlobalTimer(duration);
         buttonMovementTimer.callOnFinish += TimerDestructor;
         return buttonMovementTimer;
     }
+
+
     public void TimerDestructor()
     {
         buttonMovementTimer?.Dispose();
@@ -209,16 +223,6 @@ public class Encyclopedia : MonoBehaviour
     }
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 [Serializable]
