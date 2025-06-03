@@ -184,26 +184,28 @@ public class Encyclopedia : MonoBehaviour
             pressingButton = null;
         }
 
+        buttonMovementTimer.Restart();
 
         //If its an already pressed button, then unpress it.
         if (button == depressingButton?.button)
         {
             ChangePageMode();
         }
+
         //if its a new button then press it down and depress the previous one
         else if (button != depressingButton?.button || depressingButton == null)
         {
             pressingButton = new EncyclopediaButton
             (
                 button,
-                button.transform.position + (Vector3)buttonPosOffset,
+                (Vector3)buttonPosOffset,
                 buttonEnabledColour,
                 buttonMovementTimer
             );
 
             ChangePageMode(sortMode);
         }
-        buttonMovementTimer.Restart();
+        
 
     }
 
@@ -239,12 +241,12 @@ public class EncyclopediaButton : IDisposable
     public List<Image> graphicsOfButton = new List<Image>();
 
 
-    public EncyclopediaButton(Button newButton, Vector3 newEndVector, Color newAdditiveColour, GlobalTimer newTimer)
+    public EncyclopediaButton(Button newButton, Vector3 newOffset, Color newAdditiveColour, GlobalTimer newTimer)
     {
         button = newButton;
         rectTransform = button.GetComponent<RectTransform>();
-        startVector = rectTransform.anchoredPosition;
-        endVector = newEndVector;
+        startVector = rectTransform.position;
+        endVector = rectTransform.position + newOffset;
 
         timer = newTimer;
 
@@ -297,8 +299,6 @@ public class EncyclopediaButton : IDisposable
         Vector3 vector = Vector3.Lerp(startVector, endVector, percentFinished);
 
         Debug.Log($"percent finished: {percentFinished}");
-
-        EditorApplication.isPaused = true;
 
         Debug.Log(instance.graphicsOfButton.Count);
         for (int i = 0; i < instance.graphicsOfButton.Count; i++)

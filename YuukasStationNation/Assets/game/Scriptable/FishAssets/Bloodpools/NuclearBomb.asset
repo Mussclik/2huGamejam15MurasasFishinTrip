@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5649f9d6ca41c3846a750d75d6ad1f1e, type: 3}
   m_Name: NuclearBomb
   m_EditorClassIdentifier: 
-  fishID: 1
+  fishID: 20
   difficulty: 1
   baseSize: 5
   baseWeight: 1
-  baseFishPrice: 1
-  biome: 1
+  baseFishPrice: 20
   fishName: Nuclear Bomb
   description: Legalize Nuclear Bombs!
   refrence: 
   fishImage: {fileID: 21300000, guid: 895666e8c60b0544b923928e9dcf3e70, type: 3}
+  biome: 1

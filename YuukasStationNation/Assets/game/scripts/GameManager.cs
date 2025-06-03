@@ -8,10 +8,14 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour, ITimerStaticAttachable
 {
     private static Gamestate gamestate;
-    public static Action onUpdateStatic;
+    public event System.Action updateTimer = () => { };
+    public System.Action UpdateTimer
+    {
+        get { return updateTimer; }
+        set { updateTimer = value; }
+    }
 
-    
-    
+
     private void Awake()
     {
         instance = this;
@@ -21,8 +25,12 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
     void Start()
     {
         SoundManager.instance.PlayMusic(1, true);
-        Time.timeScale = 0.000001f;
         encyclopediaButton.onClick.AddListener(ToggleEncyclopediaState);
+
+        ITimerStaticAttachable.AttachUpdatingScript(this);
+
+        ToggleEncyclopediaState(false);
+        ToggleMenuState(true);
     }
 
 
@@ -34,7 +42,7 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
 
     void Update()
     {
-        if (ITimerStaticAttachable.onUpdateStatic != null) ITimerStaticAttachable.onUpdateStatic();
+        if (updateTimer != null) updateTimer();
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
         {
@@ -67,14 +75,42 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
         if (pauseMenuIsOpen)
         {
             pauseMenu.SetActive(false);
-            TimerCheck();
             pauseMenuIsOpen = false;
+            TimerCheck();
+            encyclopediaButton.gameObject.SetActive(true);
         }
         else
         {
             pauseMenu.SetActive(true);
-            TimerCheck();
             pauseMenuIsOpen = true;
+            TimerCheck();
+
+            if (encyclopediaMenuIsOpen)
+            {
+                ToggleEncyclopediaState();
+            }
+            encyclopediaButton.gameObject.SetActive(false);
+        }
+    }
+    public void ToggleMenuState(bool newState)
+    {
+        if (!newState)
+        {
+            pauseMenu.SetActive(false);
+            pauseMenuIsOpen = false;
+            encyclopediaButton.gameObject.SetActive(true);
+            TimerCheck();
+        }
+        else
+        {
+            pauseMenu.SetActive(true);
+            pauseMenuIsOpen = true;
+            if (encyclopediaMenuIsOpen)
+            {
+                ToggleEncyclopediaState();
+            }
+            encyclopediaButton.gameObject.SetActive(false);
+            TimerCheck();
         }
     }
 
@@ -103,6 +139,7 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
     [SerializeField] public List<FishObject> fishList;
     [SerializeField] public List<EncyclopediaPage> fishEncyclopediaList;
 
+
     public void ToggleEncyclopediaState()
     {
         if (!encyclopediaMenuIsOpen)
@@ -120,6 +157,24 @@ public class GameManager : MonoBehaviour, ITimerStaticAttachable
             TimerCheck();
         }
     }
+    public void ToggleEncyclopediaState(bool newValue)
+    {
+        if (newValue)
+        {
+            encyclopediaButton.gameObject.SetActive(false);
+            encyclopediaMenu.SetActive(true);
+            encyclopediaMenuIsOpen = true;
+            TimerCheck();
+        }
+        else
+        {
+            encyclopediaButton.gameObject.SetActive(true);
+            encyclopediaMenu.SetActive(false);
+            encyclopediaMenuIsOpen = false;
+            TimerCheck();
+        }
+    }
+
 
     public int SortFishByBiome(FishObject firstFish, FishObject secondFish)
     {
