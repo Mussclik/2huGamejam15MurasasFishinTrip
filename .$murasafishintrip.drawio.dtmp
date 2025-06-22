@@ -1,0 +1,157 @@
+<mxfile host="Electron" modified="2025-03-25T20:20:23.225Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="4Eu8ejciA4RTMIEZnv3S" version="21.6.8" type="device">
+  <diagram name="Page-1" id="w9QFThqw3ZJvzk73bpv-">
+    <mxGraphModel dx="1668" dy="974" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-1" value="Yuuka&#39;s Marketation Manipulation Participation" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="61" y="40" width="1040" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rR2d8lTUPn_YGZ-mp_-h-2" target="rR2d8lTUPn_YGZ-mp_-h-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-2" value="path" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="560" y="240" width="40" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-3" value="Yuukas Habitation station" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-4" value="lvl2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="640" y="320" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-5" value="lvl 1" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="320" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-6" value="lvl3" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="460" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-7" value="lvl4" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="640" y="460" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-8" value="lvl5" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="600" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-9" value="lvl6" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="640" y="600" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-10" value="path (lv2)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="260" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-12" value="lvl3" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="410" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-14" value="lvl5" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="550" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-15" value="lvl6" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="550" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-17" value="Aki&#39;s cultivation modification station &lt;br&gt;(buy global upgrades like 10% extra grow speed)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="370" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-18" value="Tewi&#39;s Misinformation&lt;br&gt;conspiration station&lt;br&gt;(manupulate plant market prices)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="510" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-19" value="lvl4" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="410" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-20" value="Nitoris Automisation station &lt;br&gt;(buy global upgrades like 10% extra grow speed)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="990" y="370" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-21" value="Joon&#39;s Donation Duplication station&lt;br&gt;(a literal casino)&lt;br&gt;lvl7" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="495" y="690" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-22" value="Provision Degeneration station&lt;br&gt;(plant storage)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="710" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-23" value="path (lv1)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="260" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-24" value="Chimatas Wacky Monetisation Station&lt;br&gt;(buy seeds, sell plants at constantly changing prices)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="220" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-25" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="750" y="240" width="40" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-27" value="Wriggles pollination acceleration station&lt;br&gt;(upgrades but way better or like automation of harvesting and stuff)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="990" y="510" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-28" value="Information Publication Station&lt;br&gt;(mailbox, notifies stock changes)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="370" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-29" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="410" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-30" value="Eiki&#39;s Taxation Foundation&lt;br&gt;(takes a daily amount of money depending on your level)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="180" y="180" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-31" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="245" y="240" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-33" value="Menu Hierarchy" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1590" y="40" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-34" value="&lt;font color=&quot;#19151e&quot;&gt;MenuManager&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;gradientColor=#ea6b66;" parent="1" vertex="1">
+          <mxGeometry x="1650" y="230" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" parent="1" source="rR2d8lTUPn_YGZ-mp_-h-35" target="rR2d8lTUPn_YGZ-mp_-h-34" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-35" value="Manager" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1310" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-37" value="&lt;font color=&quot;#19151e&quot;&gt;Manager : Mono&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;gradientColor=#7ea6e0;" parent="1" vertex="1">
+          <mxGeometry x="1310" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-38" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1800" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-40" value="Text" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="150" y="730" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-42" value="Murasas Marketation Manipulation Participation" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="61" y="860" width="1040" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-43" value="MRUASAS&lt;br&gt;ship trading co" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="450" y="1160" width="95" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-44" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="930" y="1000" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-45" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="990" y="1251" width="30" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-46" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="850" y="1520" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-47" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="1490" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-48" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="1330" width="50" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-49" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="370" y="1070" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-50" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="210" y="980" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-53" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="130" y="1190" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-54" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="360" y="1380" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-55" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="640" y="1400" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-56" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="750" y="1200" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rR2d8lTUPn_YGZ-mp_-h-57" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="495" y="950" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
